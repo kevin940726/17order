@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Form = ({ editKey, order, handleChange, handleSubmit, handleEdit }) => (
-  <form onSubmit={editKey ? handleEdit(editKey) : handleSubmit}>
+const Form = ({ editKey, order, handleChange, handleSubmit, handleEdit, handleEditCancel }) => (
+  <form onSubmit={editKey ? handleEdit : handleSubmit}>
     <div className="field">
       <label className="label">Order</label>
       <p className="control">
@@ -20,9 +20,11 @@ const Form = ({ editKey, order, handleChange, handleSubmit, handleEdit }) => (
       <p className="control">
         <button type="submit" className="button is-primary">Submit</button>
       </p>
-      <p className="control">
-        <button className="button is-link">Cancel</button>
-      </p>
+      {editKey ? (
+        <p className="control">
+          <button className="button is-link" onClick={handleEditCancel}>Cancel</button>
+        </p>
+      ): null}
     </div>
   </form>
 );

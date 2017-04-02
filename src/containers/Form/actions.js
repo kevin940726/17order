@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { HANDLE_CHANGE, HANDLE_SUBMIT, EDIT_ORDER, HANDLE_EDIT } from './constants';
+import { HANDLE_CHANGE, HANDLE_SUBMIT, EDIT_ORDER, HANDLE_EDIT_CANCEL } from './constants';
 import db, { today } from '../../db';
 
 const ref = db.ref(today);
@@ -10,7 +10,7 @@ export const handleChange = createAction(HANDLE_CHANGE, (name, value) => ({
 }));
 
 export const handleSubmit = () => (dispatch, getState) => {
-  const { form, auth } = getState().auth;
+  const { form, auth } = getState();
   const order = {
     date: today,
     memberId: auth.user.id,
@@ -39,17 +39,19 @@ export const editOrder = (key) => (dispatch, getState) => {
   });
 };
 
-export const handleEdit = (key) => (dispatch, getState) => {
-  const { order } = getState().form;
+export const handleEditCancel = createAction(HANDLE_EDIT_CANCEL);
 
-  return {
-    type: HANDLE_EDIT,
-    payload: ref.child('orders')
-      .child(key)
-      .transaction(val => ({
-        ...val,
-        order,
-        timestamp: Date.now(),
-      })),
-  };
+export const handleEdit = () => (dispatch, getState) => {
+  const { editKey, order } = getState().form;
+
+  ref.child('orders')
+    .child(editKey)
+    .transaction(val => ({
+      ...val,
+      order,
+      timestamp: Date.now(),
+    }))
+    .then(() => {
+      dispatch(handleEditCancel());
+    });
 };

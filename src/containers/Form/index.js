@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Form from './component';
-import { handleChange, handleSubmit, handleEdit } from './actions';
+import { handleChange, handleSubmit, handleEdit, handleEditCancel } from './actions';
 
 const mapStateToProps = state => ({
   order: state.form.order,
@@ -19,12 +19,16 @@ const mapDispatchToProps = dispatch => ({
     dispatch(handleSubmit());
   },
 
-  handleEdit(key) {
-    return (e) => {
-      e.preventDefault();
+  handleEdit(e) {
+    e.preventDefault();
 
-      dispatch(handleEdit(key));
-    };
+    dispatch(handleEdit());
+  },
+
+  handleEditCancel(e) {
+    e.preventDefault();
+
+    dispatch(handleEditCancel());
   },
 });
 
