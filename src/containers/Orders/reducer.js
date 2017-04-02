@@ -5,12 +5,11 @@ import { GET_ORDERS, APPEND_ORDER, DELETE_ORDER, SET_ORDER } from './constants';
 const orders = handleActions({
   [GET_ORDERS]: (state, action) => ({
     ...state,
-    isLoading: true,
+    isLoading: false,
   }),
 
   [APPEND_ORDER]: (state, action) => ({
     ...state,
-    isLoading: false,
     orders: state.orders.unshift(action.payload),
   }),
 
@@ -30,7 +29,7 @@ const orders = handleActions({
   }),
 }, {
   orders: List(),
-  isLoading: false,
+  isLoading: true,
 });
 
 export default orders;

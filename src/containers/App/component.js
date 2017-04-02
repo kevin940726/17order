@@ -7,7 +7,9 @@ class App extends Component {
   componentDidMount() {
     const { auth } = (this.props.location.state || { auth: {} });
 
-    this.props.setAuthInfo(auth);
+    if (auth && auth.ok === true) {
+      this.props.setAuthInfo(auth);
+    }
   }
 
   render() {
