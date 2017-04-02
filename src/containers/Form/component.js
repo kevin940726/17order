@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Form = ({ order, handleChange, handleSubmit }) => (
-  <form onSubmit={handleSubmit}>
+const Form = ({ editKey, order, handleChange, handleSubmit, handleEdit }) => (
+  <form onSubmit={editKey ? handleEdit(editKey) : handleSubmit}>
     <div className="field">
       <label className="label">Order</label>
       <p className="control">

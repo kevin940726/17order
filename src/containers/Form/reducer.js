@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { HANDLE_CHANGE, HANDLE_SUBMIT } from './constants.js';
+import { HANDLE_CHANGE, HANDLE_SUBMIT, EDIT_ORDER, HANDLE_EDIT } from './constants.js';
 
 const form = handleActions({
   [HANDLE_CHANGE]: (state, action) => ({
@@ -11,8 +11,20 @@ const form = handleActions({
     ...state,
     order: '',
   }),
+
+  [EDIT_ORDER]: (state, action) => ({
+    ...state,
+    editKey: action.payload,
+  }),
+
+  [HANDLE_EDIT]: state => ({
+    ...state,
+    order: '',
+    editKey: null,
+  }),
 }, {
   order: '',
+  editKey: null,
 });
 
 export default form;

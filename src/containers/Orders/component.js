@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import styled from 'styled-components';
 import TimeAgo from '../../components/TimeAgo';
 
 const Header = () => (
@@ -6,21 +7,28 @@ const Header = () => (
     <th>Date</th>
     <th>Member</th>
     <th>Order</th>
-    <th>Timeago</th>
+    <th>Last Update</th>
+    <th></th>
   </tr>
 );
 
-class Orders extends Component {
-  static propTypes = {
-    orders: PropTypes.array,
-  };
+const Tr = styled.tr`
+  td:last-child {
+    opacity: 0;
+  }
 
+  &:hover td:last-child {
+    opacity: 1;
+  }
+`;
+
+class Orders extends Component {
   componentDidMount() {
     this.props.getOrders();
   }
 
   render() {
-    const { orders, isLoading } = this.props;
+    const { orders, isLoading, removeOrder, editOrder } = this.props;
 
     return (
       <table className="table">
@@ -34,15 +42,27 @@ class Orders extends Component {
           {isLoading ? (
             <tr><td>{'Loading...'}</td></tr>
           ) : (
-            orders.map((order, i) => (
-              <tr key={i}>
+            orders.map(order => (
+              <Tr key={order.key}>
                 <td>{order.date}</td>
                 <td>{order.memberName}</td>
                 <td>{order.order}</td>
                 <td>
                   <TimeAgo date={order.timestamp} />
                 </td>
-              </tr>
+                <td>
+                  <a onClick={editOrder(order.key)}>
+                    <span className="icon">
+                      <i className="fa fa-pencil"></i>
+                    </span>
+                  </a>
+                  <a onClick={removeOrder(order.key)}>
+                    <span className="icon">
+                      <i className="fa fa-times"></i>
+                    </span>
+                  </a>
+                </td>
+              </Tr>
             ))
           )}
         </tbody>
