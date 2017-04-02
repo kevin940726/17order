@@ -1,0 +1,30 @@
+import React from 'react';
+
+const Form = ({ order, handleChange, handleSubmit }) => (
+  <form onSubmit={handleSubmit}>
+    <div className="field">
+      <label className="label">Order</label>
+      <p className="control">
+        <input
+          className="input"
+          type="text"
+          placeholder="Text input"
+          name="order"
+          value={order}
+          onChange={handleChange}
+        />
+      </p>
+    </div>
+
+    <div className="field is-grouped">
+      <p className="control">
+        <button type="submit" className="button is-primary">Submit</button>
+      </p>
+      <p className="control">
+        <button className="button is-link">Cancel</button>
+      </p>
+    </div>
+  </form>
+);
+
+export default Form;

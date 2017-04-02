@@ -1,0 +1,17 @@
+{
+  "name": "17botSlackAuth",
+  "version": "1.0.0",
+  "main": "auth.js",
+  "author": "Kai Hao",
+  "license": "MIT",
+  "dependencies": {
+    "claudia-api-builder": "^2.4.1",
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "scripts": {
+    "deploy": "cross-env AWS_PROFILE=claudia claudia update"
+  },
+  "devDependencies": {
+    "cross-env": "^4.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "17botSlackAuth-executor",
+    "name": "17botSlackAuth",
+    "region": "ap-northeast-1"
+  },
+  "api": {
+    "id": "41mmepe4yc",
+    "module": "auth"
+  }
+}
