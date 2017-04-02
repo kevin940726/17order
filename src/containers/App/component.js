@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from '../Form';
-import SignInButton from '../Auth/SlackSignInButton';
+import SignInButton from '../../components/SlackSignInButton';
 import Orders from '../Orders';
 
 class App extends Component {
