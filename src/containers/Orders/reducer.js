@@ -1,9 +1,9 @@
 import { handleActions } from 'redux-actions';
 import { List } from 'immutable';
-import { GET_ORDERS, APPEND_ORDER, DELETE_ORDER, SET_ORDER } from './constants';
+import { LOADED_ORDER, APPEND_ORDER, DELETE_ORDER, SET_ORDER } from './constants';
 
 const orders = handleActions({
-  [GET_ORDERS]: (state, action) => ({
+  [LOADED_ORDER]: (state) => ({
     ...state,
     isLoading: false,
   }),

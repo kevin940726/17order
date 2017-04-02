@@ -1,18 +1,15 @@
 import { connect } from 'react-redux';
 import Orders from './component';
-import { getOrders, removeAction } from './actions';
+import { removeAction } from './actions';
 import { editOrder } from '../Form/actions';
 
 const mapStateToProps = state => ({
   orders: state.orders.orders,
   isLoading: state.orders.isLoading,
+  uid: state.auth.user && state.auth.user.id,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getOrders() {
-    dispatch(getOrders());
-  },
-
   editOrder(key) {
     return (e) => {
       e.preventDefault();

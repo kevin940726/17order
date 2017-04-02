@@ -1,4 +1,4 @@
-export const GET_ORDERS = 'Orders/GET_ORDERS';
+export const LOADED_ORDER = 'Orders/LOADED_ORDER';
 
 export const APPEND_ORDER = 'Orders/APPEND_ORDER';
 

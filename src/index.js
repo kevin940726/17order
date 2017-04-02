@@ -8,6 +8,7 @@ import './db';
 import store from './store';
 import App from './containers/App';
 import Auth from './containers/Auth';
+import SignOut from './containers/Auth/SignOut';
 import './index.css';
 
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
       <div>
         <Route exact path="/" component={App} />
         <Route path="/auth/redirect" component={Auth} />  
+        <Route path="/signout" component={SignOut} />
       </div>
     </Router>
   </Provider>,

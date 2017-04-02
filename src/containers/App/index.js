@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from './component';
-import { setAuthInfo } from './actions';
+import { setAuthInfo } from '../Auth/actions';
 
 const mapStateToProps = state => ({
   auth: state.auth,

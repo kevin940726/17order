@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Form from '../Form';
 import SignInButton from '../../components/SlackSignInButton';
 import Orders from '../Orders';
@@ -7,9 +8,7 @@ class App extends Component {
   componentDidMount() {
     const { auth } = (this.props.location.state || { auth: {} });
 
-    if (auth && auth.ok === true) {
-      this.props.setAuthInfo(auth);
-    }
+    this.props.setAuthInfo(auth);
   }
 
   render() {
@@ -22,11 +21,10 @@ class App extends Component {
           {!isLogin && (<SignInButton />)}
 
           {isLogin && (
-            <h1>Welcome {auth.user.name}</h1>
-          )}
-
-          {isLogin && (
-            <Form />
+            <div>
+              <h1>Welcome {auth.user.name} <Link to="/signout">sign out</Link></h1>
+              <Form />
+            </div>
           )}
 
           <Orders />
