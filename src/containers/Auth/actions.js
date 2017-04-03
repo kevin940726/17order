@@ -1,4 +1,3 @@
-import { createAction } from 'redux-actions';
 import firebase from 'firebase';
 import { SET_AUTH_INFO } from './constants';
 import { getMenus } from '../Menus/actions';

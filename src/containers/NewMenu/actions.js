@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import * as C from './constants';
-import db, { today } from '../../db';
+import db from '../../db';
+import TODAY from '../../utils/constants';
 
 // make file public
 const sharePublicUrl = (token, fileId) => (
@@ -57,7 +58,7 @@ export const handleSubmit = () => async (dispatch, getState) => {
         db.ref(`${team.id}/menus`)
           .push()
           .set({
-            date: today,
+            date: TODAY,
             memberId: user.id,
             memberName: user.name,
             timestamp: Date.now(),

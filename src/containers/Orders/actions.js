@@ -1,6 +1,5 @@
-import { createAction } from 'redux-actions';
 import * as C from './constants';
-import db, { today } from '../../db';
+import db from '../../db';
 
 export const getOrders = () => (dispatch, getState) => {
   const { auth, menus } = getState();

@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-import { List } from 'immutable';
 import * as C from './constants';
 
 const orders = handleActions({

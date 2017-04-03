@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import { HANDLE_CHANGE, HANDLE_SUBMIT, EDIT_ORDER, HANDLE_EDIT_CANCEL } from './constants';
-import db, { today } from '../../db';
+import db from '../../db';
+import TODAY from '../../utils/constants';
 
 export const handleChange = createAction(HANDLE_CHANGE, (name, value) => ({
   name,
@@ -10,7 +11,7 @@ export const handleChange = createAction(HANDLE_CHANGE, (name, value) => ({
 export const handleSubmit = () => (dispatch, getState) => {
   const { form, auth, menus } = getState();
   const order = {
-    date: today,
+    date: TODAY,
     menu: menus.active,
     memberId: auth.user.id,
     memberName: auth.user.name,
@@ -28,7 +29,7 @@ export const handleSubmit = () => (dispatch, getState) => {
 };
 
 export const editOrder = (key) => (dispatch, getState) => {
-  const { orders, auth, menus } = getState();
+  const { orders } = getState();
   const order = orders.orders.find(o => o.key === key);
 
   dispatch(handleChange('order', order.order));
@@ -42,7 +43,7 @@ export const editOrder = (key) => (dispatch, getState) => {
 export const handleEditCancel = createAction(HANDLE_EDIT_CANCEL);
 
 export const handleEdit = () => (dispatch, getState) => {
-  const { menus, auth, form } = getState();
+  const { auth, form } = getState();
   const { editKey, order } = form;
 
   db.ref(`${auth.team.id}/orders`)

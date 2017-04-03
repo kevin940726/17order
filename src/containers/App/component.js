@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from '../Form';
 import SignInButton from '../../components/SlackSignInButton';
-import AddToSlackButton from '../../components/AddToSlackButton';
 import NewMenu from '../NewMenu';
 import Orders from '../Orders';
 import Menus from '../Menus';

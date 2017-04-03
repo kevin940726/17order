@@ -1,7 +1,4 @@
 import firebase from 'firebase';
-import dateFormat from 'dateformat';
-
-export const today = dateFormat(new Date(), 'yyyy-mm-dd');
 
 // Initialize Firebase
 const config = {

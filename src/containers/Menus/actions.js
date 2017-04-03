@@ -1,4 +1,3 @@
-import { createAction } from 'redux-actions';
 import db from '../../db';
 import * as C from './constants';
 import { getOrders } from '../Orders/actions';
