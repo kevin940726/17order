@@ -1,6 +1,14 @@
 import { handleActions } from 'redux-actions';
 import * as C from './constants';
 
+const defaultFields = {
+  type: 'retaurant',
+  name: '',
+  menu: '',
+  notes: '',
+  file: {},
+};
+
 const newMenu = handleActions({
   [C.HANDLE_OPEN_MODAL]: state => ({
     ...state,
@@ -10,6 +18,8 @@ const newMenu = handleActions({
   [C.HANDLE_CLOSE_MODAL]: state => ({
     ...state,
     isModalOpen: false,
+    isEditing: false,
+    fields: state.isEditing ? defaultFields : state.fields,
   }),
 
   [C.HANDLE_CHANGE]: (state, action) => ({
@@ -44,13 +54,7 @@ const newMenu = handleActions({
   isModalOpen: false,
   isSubmitting: false,
   isEditing: false,
-  fields: {
-    type: 'retaurant',
-    name: '',
-    menu: '',
-    notes: '',
-    file: {},
-  },
+  fields: defaultFields,
 });
 
 export default newMenu;

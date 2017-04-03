@@ -48,10 +48,19 @@ export const handleSubmit = () => async (dispatch, getState) => {
   const { fields, isEditing } = newMenu;
   const { user, access_token, team } = auth;
 
-  const getFilePublicLink = async () => fields.menu ||
-    (fields.file ?
-      (await uploadFile(access_token, fields.file, { title: fields.name })) :
-      null);
+  const getFilePublicLink = async () => {
+    if (fields.menu) {
+      return fields.menu;
+    }
+
+    if (fields.file) {
+      return Promise.all(
+        [].map.call(fields.file, file => uploadFile(access_token, file, { title: fields.name }))
+      );
+    }
+
+    return null;
+  };
 
   const menusRef = db.ref(`${team.id}/menus`);
   const menu = isEditing ? menusRef.child(menus.active) : menusRef.push();
@@ -65,6 +74,7 @@ export const handleSubmit = () => async (dispatch, getState) => {
         memberName: user.name,
         timestamp: Date.now(),
         ...fields,
+        file: null, // don't include file
         menu: filePublicLink,
       }))
       .then(() => dispatch(handleMenuChange(menu.key)))
