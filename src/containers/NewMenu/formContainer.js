@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => ({
     let val = value;
 
     if (type === 'file') {
-      val = files;
+      val = files[0];
     }
 
     dispatch(handleChange(name, val));

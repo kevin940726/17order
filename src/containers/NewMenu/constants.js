@@ -5,3 +5,5 @@ export const HANDLE_CLOSE_MODAL = 'NewMenu/HANDLE_CLOSE_MODAL';
 export const HANDLE_CHANGE = 'NewMenu/HANDLE_CHANGE';
 
 export const HANDLE_SUBMIT = 'NewMenu/HANDLE_SUBMIT';
+
+export const EDIT_MENU = 'NewMenu/EDIT_MENU';

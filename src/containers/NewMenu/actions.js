@@ -44,27 +44,45 @@ export const handleChange = createAction(C.HANDLE_CHANGE, (name, value) => ({
 }));
 
 export const handleSubmit = () => async (dispatch, getState) => {
-  const state = getState();
-  const { fields } = state.newMenu;
-  const { user, access_token, team } = state.auth;
+  const { newMenu, auth, menus } = getState();
+  const { fields, isEditing } = newMenu;
+  const { user, access_token, team } = auth;
 
-  const getFilePublicLink = async () => (fields.menu && fields.menu[0]) ?
-    (await uploadFile(access_token, fields.menu[0], { title: fields.name })) :
-    null;
-  
-  const newMenu = db.ref(`${team.id}/menus`).push();
+  const getFilePublicLink = async () => fields.menu ||
+    (fields.file ?
+      (await uploadFile(access_token, fields.file, { title: fields.name })) :
+      null);
+
+  const menusRef = db.ref(`${team.id}/menus`);
+  const menu = isEditing ? menusRef.child(menus.active) : menusRef.push();
 
   return dispatch({
     type: C.HANDLE_SUBMIT,
     payload: getFilePublicLink()
-      .then(menu => newMenu.set({
+      .then(filePublicLink => menu.set({
         date: TODAY,
         memberId: user.id,
         memberName: user.name,
         timestamp: Date.now(),
         ...fields,
-        menu,
+        menu: filePublicLink,
       }))
-      .then(() => dispatch(handleMenuChange(newMenu.key)))
+      .then(() => dispatch(handleMenuChange(menu.key)))
+  });
+};
+
+export const editMenu = () => (dispatch, getState) => {
+  const { menus } = getState();
+  const fields = menus.menus.find(menu => menu.key === menus.active);
+
+  dispatch(handleOpenModal());
+  dispatch(handleChange('type', fields.type));
+  dispatch(handleChange('name', fields.name));
+  dispatch(handleChange('menu', fields.menu));
+  dispatch(handleChange('file', {}));
+  dispatch(handleChange('notes', fields.notes));
+
+  return dispatch({
+    type: C.EDIT_MENU,
   });
 };

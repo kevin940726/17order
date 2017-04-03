@@ -35,14 +35,21 @@ const newMenu = handleActions({
     ...state,
     isSubmitting: false,
   }),
+
+  [C.EDIT_MENU]: state => ({
+    ...state,
+    isEditing: true,
+  }),
 }, {
   isModalOpen: false,
   isSubmitting: false,
+  isEditing: false,
   fields: {
     type: 'retaurant',
     name: '',
-    menu: {},
+    menu: '',
     notes: '',
+    file: {},
   },
 });
 

@@ -28,7 +28,7 @@ const NewMenu = ({ isModalOpen, handleCloseModal, handleSubmit, handleChange, is
 
     <Input label="Name" placeholder="7-11" name="name" />
 
-    <Input label="Menu" type="file" name="menu" />
+    <Input label="Menu" type="file" name="file" />
 
     <TextArea label="Note" name="notes" />
   </Modal>

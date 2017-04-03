@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import Menus from './component';
 import { handleChange, handleEdit, handleRemove } from './actions';
+import { editMenu } from '../NewMenu/actions';
 import { MENUS_LIST } from './constants';
 
 const menusSelector = state => state.menus[MENUS_LIST];
@@ -29,7 +30,7 @@ const mapDispatchToProps = dispatch => ({
   handleEdit(e) {
     e.preventDefault();
 
-    dispatch(handleEdit());
+    dispatch(editMenu());
   },
 
   handleRemove(e) {
