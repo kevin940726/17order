@@ -20,8 +20,7 @@ export const getMenus = () => (dispatch, getState) => {
 
   const ref = db.ref(`${auth.team.id}/menus`)
     .orderByChild('timestamp')
-    .startAt(until.getTime())
-    .endAt(Date.now());
+    .startAt(until.getTime());
 
   C.menuBinding.bind(ref);
 
@@ -30,4 +29,17 @@ export const getMenus = () => (dispatch, getState) => {
     .then((snapshot) => {
       dispatch(handleChange(snapshot.key));
     });
+};
+
+export const handleEdit = () => (dispatch, getState) => {
+
+};
+
+export const handleRemove = () => async (dispatch, getState) => {
+  const { auth, menus } = getState();
+
+  await db.ref(`${auth.team.id}/menus/${menus.active}`).remove();
+
+  // change active to the second menu
+  dispatch(handleChange(getState().menus.menus.first().key));
 };

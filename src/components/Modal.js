@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const Modal = ({ isOpen, handleClose, title, children, handleSubmit, isSubmitting }) => (
+const Modal = ({ isOpen, handleClose, title, children, handleSubmit, isSubmitting, yesText, noText }) => (
   <div className={`modal ${isOpen ? 'is-active' : ''}`}>
     <div className="modal-background" onClick={handleClose}></div>
     <div className="modal-card">
@@ -15,11 +15,26 @@ const Modal = ({ isOpen, handleClose, title, children, handleSubmit, isSubmittin
         <a
           className={`button is-success ${isSubmitting ? 'is-loading' : ''}`}
           onClick={handleSubmit}
-        >Save changes</a>
-        <a className="button" onClick={handleClose}>Cancel</a>
+        >{yesText}</a>
+        <a className="button" onClick={handleClose}>{noText}</a>
       </footer>
     </div>
   </div>
 );
+
+const textProps = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.node,
+]);
+
+Modal.propTypes = {
+  yesText: textProps,
+  noText: textProps,
+};
+
+Modal.defaultProps = {
+  yesText: 'Submit',
+  noText: 'Cancel'
+};
 
 export default Modal;

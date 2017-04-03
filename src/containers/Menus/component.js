@@ -1,24 +1,64 @@
-import React from 'react';
-import { TODAY } from '../../utils/constants';
+import React, { Component } from 'react';
+import Confirm from './components/Confirm';
+import MenuSelect from './components/MenuSelect';
 
-const Menus = ({ menus, value, handleChange }) => (
-  <div className="field">
-    <label className="label">Select a menu</label>
-    <p className="control">
-      <span className="select">
-        <select value={value} onChange={handleChange}>
-          {menus.groupBy(menu => menu.date)
-            .map((group, date) => (
-              <optgroup label={date === TODAY ? 'Today' : date} key={date}>
-                {group.map(menu => (
-                  <option key={menu.key} value={menu.key}>{menu.name}</option>
-                ))}
-              </optgroup>
-            )).toList()}
-        </select>
-      </span>
-    </p>
-  </div>
-);
+class Menus extends Component {
+  state = {
+    isConfirmModalOpen: false,
+  };
+
+  handleOpenModal = () => {
+    this.setState({
+      isConfirmModalOpen: true,
+    });
+  }
+
+  handleCloseModal = () => {
+    this.setState({
+      isConfirmModalOpen: false,
+    });
+  }
+
+  handleConfirm = () => {
+    this.props.handleRemove();
+    this.handleCloseModal();
+  }
+
+  render() {
+    const { menus, value, handleChange, isEditable, handleEdit } = this.props;
+    const { isConfirmModalOpen } = this.state;
+
+    return (
+      <div>
+        <MenuSelect
+          value={value}
+          handleChange={handleChange}
+          menus={menus}
+        />
+
+        {isEditable && (
+          <span>
+            <a onClick={handleEdit}>
+              <span className="icon">
+                <i className="fa fa-pencil"></i>
+              </span>
+            </a>
+            <a onClick={this.handleOpenModal}>
+              <span className="icon">
+                <i className="fa fa-times"></i>
+              </span>
+            </a>
+          </span>
+        )}
+
+        <Confirm
+          isOpen={isConfirmModalOpen}
+          handleClose={this.handleCloseModal}
+          handleConfirm={this.handleConfirm}
+        />
+      </div>
+    );
+  }
+}
 
 export default Menus;
