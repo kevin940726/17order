@@ -4,10 +4,7 @@ import { handleChange } from './actions';
 import { MENUS_LIST } from './constants';
 
 const mapStateToProps = state => ({
-  menus: state.menus[MENUS_LIST].map(menu => ({
-    label: menu.name,
-    value: menu.key,
-  })).toJS(),
+  menus: state.menus[MENUS_LIST],
   value: state.menus.active,
 });
 
