@@ -16,10 +16,30 @@ api.get('/auth', (request) => {
 
   return fetch(`https://slack.com/api/oauth.access?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`)
     .then(res => res.json())
-    .then(auth => admin.auth()
-      .createCustomToken(auth.user.id)
-      .then(customToken => Object.assign({}, auth, { customToken }))
-    );
+    .then(auth => {
+      // add to slack
+      if (auth && auth.ok === true && auth.incoming_webhook) {
+        return admin.database()
+          .ref(auth.team_id)
+          .child('webhook')
+          .set(auth.incoming_webhook);
+      }
+
+      // sign in with slack
+      return admin.database()
+        .ref(auth.team.id)
+        .child('webhook')
+        .once('value')
+        .then(snapshot => admin.auth()
+          .createCustomToken(auth.user.id, {
+            teamId: auth.team.id,
+          })
+          .then(customToken => Object.assign({}, auth, {
+            customToken,
+            webhook: snapshot.val(),
+          }))
+        );
+    });
 });
 
 module.exports = api;

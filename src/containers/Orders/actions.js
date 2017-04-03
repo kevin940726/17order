@@ -1,46 +1,25 @@
 import { createAction } from 'redux-actions';
-import { LOADED_ORDER, APPEND_ORDER, DELETE_ORDER, SET_ORDER, REMOVE_ACTION } from './constants';
+import * as C from './constants';
 import db, { today } from '../../db';
-import store from '../../store';
 
-const ref = db.ref(today);
-const ordersRef = ref.child('orders');
+export const getOrders = () => (dispatch, getState) => {
+  const { auth, menus } = getState();
+  const ref = db.ref(`${auth.team.id}/orders`)
+    .orderByChild('menu')
+    .equalTo(menus.active);
 
-export const loadedOrder = createAction(LOADED_ORDER);
+  C.orderBinding.bind(ref);
 
-export const appendOrder = createAction(APPEND_ORDER);
-
-export const deleteOrder = createAction(DELETE_ORDER);
-
-export const setOrder = createAction(SET_ORDER);
-
-export const removeAction = createAction(REMOVE_ACTION, key => (
-  ref.child('orders')
-    .child(key)
-    .remove()
-));
-
-// bind only once
-ordersRef.once('value')
-  .then(() => {
-    store.dispatch(loadedOrder());
+  dispatch({
+    type: C.LOADING_ORDERS,
   });
+};
 
-ordersRef.orderByChild('timestamp')
-  .on('child_added', (snapshot) => {
-    store.dispatch(appendOrder({
-      ...snapshot.val(),
-      key: snapshot.key,
-    }));
+export const removeAction = key => (dispatch, getState) => {
+  const { auth } = getState();
+
+  return dispatch({
+    type: C.REMOVE_ACTION,
+    payload: db.ref(`${auth.team.id}/orders/${key}`).remove(),
   });
-
-ordersRef.on('child_removed', (snapshot) => {
-  store.dispatch(deleteOrder(snapshot.key))
-});
-
-ordersRef.on('child_changed', (snapshot) => {
-  store.dispatch(setOrder({
-    ...snapshot.val(),
-    key: snapshot.key,
-  }));
-});
+};

@@ -1,35 +1,17 @@
 import { handleActions } from 'redux-actions';
 import { List } from 'immutable';
-import { LOADED_ORDER, APPEND_ORDER, DELETE_ORDER, SET_ORDER } from './constants';
+import * as C from './constants';
 
 const orders = handleActions({
-  [LOADED_ORDER]: (state) => ({
-    ...state,
-    isLoading: false,
-  }),
+  ...C.orderBinding.getReducer(),
 
-  [APPEND_ORDER]: (state, action) => ({
+  [C.LOADING_ORDERS]: state => ({
     ...state,
-    orders: state.orders.unshift(action.payload),
-  }),
-
-  [DELETE_ORDER]: (state, action) => ({
-    ...state,
-    orders: state.orders.delete(
-      state.orders.findIndex(order => order.key === action.payload)
-    ),
-  }),
-
-  [SET_ORDER]: (state, action) => ({
-    ...state,
-    orders: state.orders.set(
-      state.orders.findIndex(order => order.key === action.payload.key),
-      action.payload
-    ),
+    [C.IS_LOADING]: true,
+    [C.ORDERS_LIST]: state[C.ORDERS_LIST].clear(),
   }),
 }, {
-  orders: List(),
-  isLoading: true,
+  ...C.orderBinding.getInitialState(),
 });
 
 export default orders;

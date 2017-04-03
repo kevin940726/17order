@@ -2,24 +2,23 @@ import { createAction } from 'redux-actions';
 import { HANDLE_CHANGE, HANDLE_SUBMIT, EDIT_ORDER, HANDLE_EDIT_CANCEL } from './constants';
 import db, { today } from '../../db';
 
-const ref = db.ref(today);
-
 export const handleChange = createAction(HANDLE_CHANGE, (name, value) => ({
   name,
   value,
 }));
 
 export const handleSubmit = () => (dispatch, getState) => {
-  const { form, auth } = getState();
+  const { form, auth, menus } = getState();
   const order = {
     date: today,
+    menu: menus.active,
     memberId: auth.user.id,
     memberName: auth.user.name,
     order: form.order,
     timestamp: Date.now(),
   };
 
-  ref.child('orders')
+  db.ref(`${auth.team.id}/orders`)
     .push()
     .set(order);
   
@@ -29,7 +28,8 @@ export const handleSubmit = () => (dispatch, getState) => {
 };
 
 export const editOrder = (key) => (dispatch, getState) => {
-  const order = getState().orders.orders.find(o => o.key === key);
+  const { orders, auth, menus } = getState();
+  const order = orders.orders.find(o => o.key === key);
 
   dispatch(handleChange('order', order.order));
 
@@ -42,9 +42,10 @@ export const editOrder = (key) => (dispatch, getState) => {
 export const handleEditCancel = createAction(HANDLE_EDIT_CANCEL);
 
 export const handleEdit = () => (dispatch, getState) => {
-  const { editKey, order } = getState().form;
+  const { menus, auth, form } = getState();
+  const { editKey, order } = form;
 
-  ref.child('orders')
+  db.ref(`${auth.team.id}/orders`)
     .child(editKey)
     .transaction(val => ({
       ...val,
