@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import Menus from './component';
 import { handleChange } from './actions';
+import { MENUS_LIST } from './constants';
 
 const mapStateToProps = state => ({
-  menus: state.menus.menus.map(menu => ({
+  menus: state.menus[MENUS_LIST].map(menu => ({
     label: menu.name,
     value: menu.key,
   })).toJS(),

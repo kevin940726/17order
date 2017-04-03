@@ -1,7 +1,8 @@
 import store from '../store';
 import { List } from 'immutable';
 
-const createBinding = (list, {
+const createBinding = ({
+  list,
   onceValue,
   onChildAdded,
   onChildRemoved,

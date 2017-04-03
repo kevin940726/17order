@@ -14,7 +14,7 @@ export const ORDERS_LIST = 'orders';
 
 export const IS_LOADING = 'isOrdersLoading';
 
-export const orderBinding = createBinding(ORDERS_LIST, {
+export const orderBinding = createBinding({
   list: ORDERS_LIST,
   onceValue: GET_ORDERS,
   onChildAdded: APPEND_ORDER,

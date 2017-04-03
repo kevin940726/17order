@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import * as C from './constants';
 import db from '../../db';
-import TODAY from '../../utils/constants';
+import { TODAY } from '../../utils/constants';
 
 // make file public
 const sharePublicUrl = (token, fileId) => (

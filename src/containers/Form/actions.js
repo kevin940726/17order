@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import { HANDLE_CHANGE, HANDLE_SUBMIT, EDIT_ORDER, HANDLE_EDIT_CANCEL } from './constants';
 import db from '../../db';
-import TODAY from '../../utils/constants';
+import { TODAY } from '../../utils/constants';
 
 export const handleChange = createAction(HANDLE_CHANGE, (name, value) => ({
   name,
