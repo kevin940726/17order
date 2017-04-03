@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import * as C from './constants';
 import db from '../../db';
 import { TODAY } from '../../utils/constants';
+import { handleChange as handleMenuChange } from '../Menus/actions';
 
 // make file public
 const sharePublicUrl = (token, fileId) => (
@@ -50,21 +51,20 @@ export const handleSubmit = () => async (dispatch, getState) => {
   const getFilePublicLink = async () => (fields.menu && fields.menu[0]) ?
     (await uploadFile(access_token, fields.menu[0], { title: fields.name })) :
     null;
+  
+  const newMenu = db.ref(`${team.id}/menus`).push();
 
   return dispatch({
     type: C.HANDLE_SUBMIT,
     payload: getFilePublicLink()
-      .then(menu => (
-        db.ref(`${team.id}/menus`)
-          .push()
-          .set({
-            date: TODAY,
-            memberId: user.id,
-            memberName: user.name,
-            timestamp: Date.now(),
-            ...fields,
-            menu,
-          })
-      ))
+      .then(menu => newMenu.set({
+        date: TODAY,
+        memberId: user.id,
+        memberName: user.name,
+        timestamp: Date.now(),
+        ...fields,
+        menu,
+      }))
+      .then(() => dispatch(handleMenuChange(newMenu.key)))
   });
 };
