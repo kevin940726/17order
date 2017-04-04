@@ -14,6 +14,10 @@ admin.initializeApp({
 api.get('/auth', (request) => {
   const code = request.queryString.code;
 
+  if (!code) {
+    return; // stop poking my server!
+  }
+
   return fetch(`https://slack.com/api/oauth.access?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`)
     .then(res => res.json())
     .then(auth => {

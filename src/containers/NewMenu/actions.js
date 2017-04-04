@@ -90,7 +90,7 @@ export const handleSubmit = () => async (dispatch, getState) => {
         attachments: [
           {
             title: fields.name,
-            title_link: `http://localhost:3000/${menu.key}`,
+            title_link: `${window.location.protocol}//${window.location.host}/${menu.key}`,
             text: fields.notes,
             color: "good",
           },
