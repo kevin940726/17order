@@ -7,15 +7,18 @@ export const setAuthInfo = auth => async (dispatch, getState) => {
     return {};
   }
 
-  await dispatch({
+  const { value } = await dispatch({
     type: SET_AUTH_INFO,
     payload: firebase.auth()
       .signInWithCustomToken(auth.customToken)
       .then(() => auth)
-      .catch((err) => {
-        console.error(err.message);
-      }),
+      .catch(err => ({
+        error: true,
+        ...err
+      })),
   });
 
-  dispatch(getMenus());
+  if (!value.error) {
+    dispatch(getMenus());
+  }
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { parse } from 'query-string';
 
-class Auth extends Component {
+class AuthRedirect extends Component {
   state = {
     auth: {},
     isError: false,
@@ -15,7 +15,7 @@ class Auth extends Component {
     fetch(`https://41mmepe4yc.execute-api.ap-northeast-1.amazonaws.com/latest/auth?code=${code}`)
       .then(res => res.json())
       .then(payload => {
-        console.log(payload);
+        console.log(payload); // eslint-disable-line no-console
         this.setState({ auth: payload });
       })
       .catch(err => {
@@ -50,4 +50,4 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+export default AuthRedirect;

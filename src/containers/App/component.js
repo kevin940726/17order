@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Form from '../Form';
-import SignInButton from '../../components/SlackSignInButton';
 import NewMenu from '../NewMenu';
 import Orders from '../Orders';
 import Menus from '../Menus';
 
 class App extends Component {
-  componentDidMount() {
-    const { auth } = (this.props.location.state || { auth: {} });
+  constructor(props) {
+    super(props);
 
-    this.props.setAuthInfo(auth);
+    const { auth } = (props.location.state || { auth: {} });
+
+    props.setAuthInfo(auth);
   }
 
   render() {
-    const { auth, handleOpenNewMenuModal } = this.props;
+    const { auth, location, handleOpenNewMenuModal } = this.props;
     const isLogin = auth && auth.ok === true;
 
     if (!isLogin) {
-      return (<SignInButton />);
+      if (!location.state) {
+        return (<Redirect to="/login" />);
+      }
+
+      return (<div>Loging in...</div>);
     }
 
     return (

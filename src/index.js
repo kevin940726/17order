@@ -7,7 +7,8 @@ import 'bulma/css/bulma.css';
 import './db';
 import store from './store';
 import App from './containers/App';
-import Auth from './containers/Auth';
+import AuthRedirect from './containers/Auth/AuthRedirect';
+import LogIn from './containers/Auth/LogIn';
 import SignOut from './containers/Auth/SignOut';
 import './index.css';
 
@@ -16,7 +17,8 @@ ReactDOM.render(
     <Router>
       <div>
         <Route exact path="/" component={App} />
-        <Route path="/auth/redirect" component={Auth} />  
+        <Route path="/login" component={LogIn} />
+        <Route path="/auth" component={AuthRedirect} />  
         <Route path="/signout" component={SignOut} />
       </div>
     </Router>

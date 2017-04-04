@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import Menus from './component';
-import { handleChange, handleEdit, handleRemove } from './actions';
+import { handleChange, handleRemove } from './actions';
 import { editMenu } from '../NewMenu/actions';
 import { MENUS_LIST } from './constants';
 
