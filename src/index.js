@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import 'bulma/css/bulma.css';
 
@@ -16,10 +16,13 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-        <Route exact path="/" component={App} />
-        <Route path="/login" component={LogIn} />
-        <Route path="/auth" component={AuthRedirect} />  
-        <Route path="/signout" component={SignOut} />
+        <Switch>
+          <Route exact path="/" component={App} />
+          <Route path="/login" component={LogIn} />
+          <Route path="/auth" component={AuthRedirect} />  
+          <Route path="/signout" component={SignOut} />
+          <Route path="/:menuId" component={App} />
+        </Switch>
       </div>
     </Router>
   </Provider>,

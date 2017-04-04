@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, Route } from 'react-router-dom';
 import Form from '../Form';
 import NewMenu from '../NewMenu';
 import Orders from '../Orders';
@@ -36,7 +36,8 @@ class App extends Component {
               New Menu
             </button>
 
-            <Menus />
+            <Route exact path="/" component={Menus} />
+            <Route path="/:menuId" component={Menus} />
 
             <Form />
           </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Confirm from './components/Confirm';
 import MenuSelect from './components/MenuSelect';
 
@@ -25,8 +26,24 @@ class Menus extends Component {
   }
 
   render() {
-    const { menus, value, handleChange, isEditable, handleEdit } = this.props;
+    const { menus, value, handleChange, isEditable, handleEdit, match, location } = this.props;
     const { isConfirmModalOpen } = this.state;
+
+    if (!value) {
+      return (<div>loading...</div>);
+    }
+
+    if (!match.params || !match.params.menuId || match.params.menuId !== value) {
+      return (
+        <Redirect
+          push
+          to={{
+            pathname: `/${value}`,
+            state: location.state,
+          }}
+        />
+      );
+    }
 
     return (
       <div>

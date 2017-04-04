@@ -31,10 +31,6 @@ export const getMenus = () => (dispatch, getState) => {
     });
 };
 
-export const handleEdit = () => (dispatch, getState) => {
-
-};
-
 export const handleRemove = () => async (dispatch, getState) => {
   const { auth, menus } = getState();
 
