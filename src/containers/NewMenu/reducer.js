@@ -50,11 +50,25 @@ const newMenu = handleActions({
     ...state,
     isEditing: true,
   }),
+
+  [C.HANDLE_INPUT_ERROR]: (state, action) => ({
+    ...state,
+    errors: {
+      ...state.errors,
+      [action.payload.name]: action.payload.message,
+    },
+  }),
+
+  [C.RESET_ERROR]: state => ({
+    ...state,
+    errors: {},
+  }),
 }, {
   isModalOpen: false,
   isSubmitting: false,
   isEditing: false,
   fields: defaultFields,
+  errors: {},
 });
 
 export default newMenu;

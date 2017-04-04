@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
 import NewMenu from "./component";
-import { handleSubmit, handleCloseModal } from './actions';
+import { handleSubmit, handleCloseModal, validateForm } from './actions';
 
 const mapStateToProps = state => ({
   isModalOpen: state.newMenu.isModalOpen,
   isSubmitting: state.newMenu.isSubmitting,
+  channel: state.auth.webhook.channel,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -12,10 +13,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(handleCloseModal());
   },
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
 
-    dispatch(handleSubmit());
+    if (dispatch(validateForm())) {
+      dispatch(handleSubmit());
+    }
   },
 });
 

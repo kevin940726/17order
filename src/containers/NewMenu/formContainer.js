@@ -3,6 +3,7 @@ import { handleChange } from './actions';
 
 const mapStateToProps = (state, ownProps) => ({
   value: ownProps.type === 'file' ? undefined : state.newMenu.fields[ownProps.name],
+  errorMessage: state.newMenu.errors[ownProps.name],
 });
 
 const mapDispatchToProps = (dispatch) => ({

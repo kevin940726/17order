@@ -19,7 +19,7 @@ class App extends Component {
     const isLogin = auth && auth.ok === true;
 
     if (!isLogin) {
-      if (!location.state) {
+      if (!location.state || !location.state.auth.ok) {
         return (<Redirect to="/login" />);
       }
 

@@ -5,7 +5,7 @@ import SignInButton from '../../components/SlackSignInButton';
 const Login = ({ auth }) => (
   <div>
     {auth.error && (
-      <div>
+      <div className="content">
         <h1>{auth.code}</h1>
         <p>{auth.message}</p>
       </div>

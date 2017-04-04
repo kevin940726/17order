@@ -1,16 +1,19 @@
 import React, { PropTypes } from 'react';
+import formControl from './formControl';
 
-const TextArea = ({ label, ...props }) => (
-  <div className="field">
-    <label className="label">{label}</label>
-    <p className="control">
-      <textarea className="textarea" placeholder="Textarea" {...props} />
-    </p>
-  </div>
+const TextArea = ({ className, ...props }) => (
+  <textarea
+    className={`textarea ${className}`}
+    {...props}
+  />
 );
 
 TextArea.propTypes = {
-  label: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
-export default TextArea;
+Text.defaultProps = {
+  className: '',
+};
+
+export default formControl(TextArea);

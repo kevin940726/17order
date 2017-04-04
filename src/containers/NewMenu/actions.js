@@ -96,3 +96,24 @@ export const editMenu = () => (dispatch, getState) => {
     type: C.EDIT_MENU,
   });
 };
+
+export const handleInputError = createAction(C.HANDLE_INPUT_ERROR, (name, message) => ({
+  name,
+  message,
+}));
+
+export const resetError = createAction(C.RESET_ERROR);
+
+export const validateForm = () => (dispatch, getState) => {
+  const { newMenu } = getState();
+  const { fields } = newMenu;
+
+  // no name
+  if (!fields.name) {
+    dispatch(handleInputError('name', 'Name is required'));
+    return false;
+  }
+
+  dispatch(resetError());
+  return true;
+};

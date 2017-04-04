@@ -1,25 +1,22 @@
 import React, { PropTypes } from 'react';
+import formControl from './formControl';
 
-const Input = ({ label, type, ...props }) => (
-  <div className="field">
-    <label className="label">{label}</label>
-    <p className="control">
-      <input
-        className="input"
-        type={type}
-        {...props}
-      />
-    </p>
-  </div>
+const Input = ({ type, className, ...props }) => (
+  <input
+    className={`input ${className}`}
+    type={type}
+    {...props}
+  />
 );
 
 Input.propTypes = {
-  label: PropTypes.string.isRequired,
   type: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Input.defaultProps = {
   type: 'text',
+  className: '',
 };
 
-export default Input;
+export default formControl(Input);

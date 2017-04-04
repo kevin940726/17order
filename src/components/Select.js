@@ -1,22 +1,18 @@
 import React, { PropTypes } from 'react';
+import formControl from './formControl'
 
-const Select = ({ label, options, ...props }) => (
-  <div className="field">
-    <label className="label">{label}</label>
-    <p className="control">
-      <span className="select">
-        <select {...props}>
-          {options.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
-          ))}
-        </select>
-      </span>
-    </p>
-  </div>
+const Select = ({ options, className, ...props }) => (
+  <span className={`select ${className}`}>
+    <select {...props}>
+      {options.map(option => (
+        <option key={option.value} value={option.value}>{option.label}</option>
+      ))}
+    </select>
+  </span>
 );
 
 Select.propTypes = {
-  label: PropTypes.string.isRequired,
+  className: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -25,4 +21,8 @@ Select.propTypes = {
   ).isRequired,
 };
 
-export default Select;
+Select.defaultProps = {
+  className: '',
+};
+
+export default formControl(Select);

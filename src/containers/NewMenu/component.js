@@ -9,13 +9,14 @@ const Input = formContainer(InputComponent);
 const Select = formContainer(SelectComponent);
 const TextArea = formContainer(TextAreaComponent);
 
-const NewMenu = ({ isModalOpen, handleCloseModal, handleSubmit, handleChange, isSubmitting }) => (
+const NewMenu = ({ isModalOpen, handleCloseModal, handleSubmit, handleChange, isSubmitting, channel }) => (
   <Modal
     isOpen={isModalOpen}
     title="New Menu"
     handleClose={handleCloseModal}
     handleSubmit={handleSubmit}
     isSubmitting={isSubmitting}
+    yesText={`Post to ${channel}`}
   >
     <Select
       label="Type"
@@ -28,9 +29,9 @@ const NewMenu = ({ isModalOpen, handleCloseModal, handleSubmit, handleChange, is
 
     <Input label="Name" placeholder="7-11" name="name" />
 
-    <Input label="Menu" type="file" name="file" multiple />
+    <Input label="Menu" type="file" name="file" multiple optional />
 
-    <TextArea label="Note" name="notes" />
+    <TextArea label="Note" name="notes" optional />
   </Modal>
 );
 
