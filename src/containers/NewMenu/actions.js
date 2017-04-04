@@ -31,7 +31,7 @@ const uploadFile = (token, file, options = {}) => {
   })
     .then(res => res.json())
     .then(res => res && res.ok === true && sharePublicUrl(token, res.file.id))
-    .then(res => res && res.ok === true && res.file.permalink_public);
+    .then(res => res && res.ok === true && res.file);
 };
 
 export const handleOpenModal = createAction(C.HANDLE_OPEN_MODAL);
@@ -46,7 +46,7 @@ export const handleChange = createAction(C.HANDLE_CHANGE, (name, value) => ({
 export const handleSubmit = () => async (dispatch, getState) => {
   const { newMenu, auth, menus } = getState();
   const { fields, isEditing } = newMenu;
-  const { user, access_token, team } = auth;
+  const { user, access_token, team, webhook } = auth;
 
   const getFilePublicLink = async () => {
     if (fields.menu) {
@@ -65,20 +65,53 @@ export const handleSubmit = () => async (dispatch, getState) => {
   const menusRef = db.ref(`${team.id}/menus`);
   const menu = isEditing ? menusRef.child(menus.active) : menusRef.push();
 
-  return dispatch({
-    type: C.HANDLE_SUBMIT,
-    payload: getFilePublicLink()
-      .then(filePublicLink => menu.set({
-        date: TODAY,
-        memberId: user.id,
-        memberName: user.name,
-        timestamp: Date.now(),
-        ...fields,
-        file: null, // don't include file
-        menu: filePublicLink,
-      }))
-      .then(() => dispatch(handleMenuChange(menu.key)))
+  dispatch({
+    type: `${C.HANDLE_SUBMIT}_PENDING`,
   });
+
+  try {
+    const filePublicLink = await getFilePublicLink();
+
+    await menu.set({
+      date: TODAY,
+      memberId: user.id,
+      memberName: user.name,
+      timestamp: Date.now(),
+      ...fields,
+      file: null, // don't include file
+      menu: filePublicLink,
+    });
+
+    await fetch(webhook.url, {
+      method: 'POST',
+      'Content-type': 'application/json',
+      body: JSON.stringify({
+        text: 'New menu published!',
+        attachments: [
+          {
+            title: fields.name,
+            title_link: `http://localhost:3000/${menu.key}`,
+            text: fields.notes,
+            color: "good",
+          },
+          ...filePublicLink.map(file => ({
+            title: file.name,
+            title_link: file.permalink_public,
+          })),
+        ],
+      }),
+    });
+
+    dispatch(handleMenuChange(menu.key)); // trigger menu select change to latest one
+
+    dispatch({
+      type: `${C.HANDLE_SUBMIT}_FULFILLED`,
+    });
+  } catch(err) {
+    dispatch({
+      type: `${C.HANDLE_SUBMIT}_REJECT`,
+    });
+  }
 };
 
 export const editMenu = () => (dispatch, getState) => {

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SignInButton from '../../components/SlackSignInButton';
+import AddToSlackButton from '../../components/AddToSlackButton';
 
 const Login = ({ auth }) => (
   <div>
@@ -11,6 +12,7 @@ const Login = ({ auth }) => (
       </div>
     )}
     <SignInButton />
+    <AddToSlackButton />
   </div>
 );
 

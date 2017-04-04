@@ -22,7 +22,8 @@ api.get('/auth', (request) => {
         return admin.database()
           .ref(auth.team_id)
           .child('webhook')
-          .set(auth.incoming_webhook);
+          .set(auth.incoming_webhook)
+          .then(() => auth);
       }
 
       // sign in with slack

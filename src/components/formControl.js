@@ -3,7 +3,7 @@ import SmallLabel from './SmallLabel';
 
 const formControl = Component => class FormControl extends React.Component {
   render() {
-    const { label, type, optional, errorMessage, ...props } = this.props;
+    const { label, optional, errorMessage, ...props } = this.props;
 
     return (
       <div className="field">
