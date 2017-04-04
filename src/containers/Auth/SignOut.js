@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import firebase from 'firebase';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { replace } from 'react-router-redux';
 
 class SignOut extends PureComponent {
   state = {
@@ -8,24 +10,27 @@ class SignOut extends PureComponent {
   };
 
   componentDidMount() {
+    const { dispatch } = this.props;
+
     firebase.auth()
       .signOut()
       .then(() => {
-        this.setState({ isSigningOut: false });
+        // this.setState({ isSigningOut: false });
+        dispatch(replace('/login'));
       });
   }
 
   render() {
-    const { isSigningOut } = this.state;
+    // const { isSigningOut } = this.state;
 
-    if (isSigningOut) {
-      return (<div>Signing out...</div>);
-    }
+    // if (isSigningOut) {
+    return (<div>Signing out...</div>);
+    // }
 
-    return (
-      <Redirect to="/login" />
-    );
+    // return (
+    //   <Redirect to="/login" />
+    // );
   }
 }
 
-export default SignOut;
+export default connect()(SignOut);

@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
-import { Link, Redirect, Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import Form from '../Form';
 import NewMenu from '../NewMenu';
 import Orders from '../Orders';
 import Menus from '../Menus';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    const { redirect, auth } = this.props;
 
-    const { auth } = (props.location.state || { auth: {} });
-
-    props.setAuthInfo(auth);
+    if (!auth || auth.ok !== true) {
+      redirect('/login');
+    }
   }
 
   render() {
-    const { auth, location, handleOpenNewMenuModal } = this.props;
+    const { auth, handleOpenNewMenuModal } = this.props;
     const isLogin = auth && auth.ok === true;
 
     if (!isLogin) {
-      if (!location.state || !location.state.auth.ok) {
-        return (<Redirect to="/login" />);
-      }
-
       return (<div>Loging in...</div>);
     }
 

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import Menus from './component';
-import { handleChange, handleRemove } from './actions';
+import { handleChange, handleRemove, getMenus } from './actions';
 import { editMenu } from '../NewMenu/actions';
 import { MENUS_LIST } from './constants';
 
@@ -16,13 +16,18 @@ const isEditableSelector = createSelector(
   (menus, active, uid) => uid === menus.find(menu => menu.key === active, null, {}).memberId
 );
 
-const mapStateToProps = state => ({
-  menus: state.menus[MENUS_LIST],
-  value: state.menus.active,
+const mapStateToProps = (state, ownProps) => ({
+  menus: menusSelector(state),
+  value: valueSelector(state),
+  active: ownProps.match.params && ownProps.match.params.menuId,
   isEditable: isEditableSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getMenus() {
+    dispatch(getMenus(ownProps.match.params));
+  },
+
   handleChange(e) {
     dispatch(handleChange(e.target.value));
   },

@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import 'bulma/css/bulma.css';
 
 import './db';
-import store from './store';
+import store, { history } from './store';
 import App from './containers/App';
 import AuthRedirect from './containers/Auth/AuthRedirect';
 import LogIn from './containers/Auth/LogIn';
@@ -14,7 +15,7 @@ import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <ConnectedRouter history={history}>
       <div>
         <Switch>
           <Route exact path="/" component={App} />
@@ -24,7 +25,7 @@ ReactDOM.render(
           <Route path="/:menuId" component={App} />
         </Switch>
       </div>
-    </Router>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

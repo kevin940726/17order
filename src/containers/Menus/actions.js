@@ -1,17 +1,19 @@
 import db from '../../db';
 import * as C from './constants';
 import { getOrders } from '../Orders/actions';
+import { push } from 'react-router-redux';
 
-export const handleChange = menu => async (dispatch) => {
-  await dispatch({
+export const handleChange = menu => (dispatch) => {
+  dispatch({
     type: C.HANDLE_CHANGE,
     payload: menu,
   });
+  dispatch(push(`/${menu}`));
 
   dispatch(getOrders());
 };
 
-export const getMenus = () => (dispatch, getState) => {
+export const getMenus = params => (dispatch, getState) => {
   const { auth } = getState();
 
   const now = new Date();
@@ -24,11 +26,18 @@ export const getMenus = () => (dispatch, getState) => {
 
   C.menuBinding.bind(ref);
 
-  ref.limitToLast(1)
-    .once('child_added')
-    .then((snapshot) => {
-      dispatch(handleChange(snapshot.key));
-    });
+  // dirty hack, bear with me now
+  const { menuId } = params || {}
+
+  if (menuId) {
+    dispatch(handleChange(menuId));
+  } else {
+    ref.limitToLast(1)
+      .once('child_added')
+      .then((snapshot) => {
+        dispatch(handleChange(snapshot.key));
+      });
+  }
 };
 
 export const handleRemove = () => async (dispatch, getState) => {

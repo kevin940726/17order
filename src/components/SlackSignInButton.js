@@ -1,7 +1,9 @@
 import React from 'react';
 
-const SignInButton = () => (
-  <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.team,identity.avatar&client_id=3960830011.162372927344">
+export const signInUrl = 'https://slack.com/oauth/authorize?scope=identity.basic,identity.team,identity.avatar&client_id=3960830011.162372927344';
+
+const SignInButton = ({ state }) => (
+  <a href={`${signInUrl}&state=${state}`}>
     <img
       alt="Sign in with Slack"
       height="40"
