@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import firebase from 'firebase';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 class SignOut extends PureComponent {
@@ -24,9 +23,9 @@ class SignOut extends PureComponent {
     }
 
     return (
-      <Redirect to="/" />
+      <Redirect to="/login" />
     );
   }
 }
 
-export default connect()(SignOut);
+export default SignOut;
