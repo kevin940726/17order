@@ -4,13 +4,21 @@ import Form from '../Form';
 import NewMenu from '../NewMenu';
 import Orders from '../Orders';
 import Menus from '../Menus';
+import { getAppLocalStorage } from '../../utils/localStorage';
 
 class App extends Component {
   componentDidMount() {
-    const { redirect, auth } = this.props;
+    const { redirect, auth, authTest } = this.props;
 
     if (!auth || auth.ok !== true) {
-      redirect('/login');
+      const storage = getAppLocalStorage();
+
+      if (!storage || storage.ok !== true) {
+        redirect('/login');
+      } else {
+        authTest(storage)
+          .catch(() => redirect('/login'));
+      }
     }
   }
 

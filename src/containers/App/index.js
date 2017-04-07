@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from './component';
-import { setAuthInfo } from '../Auth/actions';
+import { setAuthInfo, authTest } from '../Auth/actions';
 import { handleOpenModal as handleOpenNewMenuModal } from '../NewMenu/actions';
 import { replace } from 'react-router-redux';
 
@@ -23,6 +23,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       pathname: location,
       state: ownProps.location.pathname,
     }));
+  },
+
+  authTest(localAuth) {
+    return dispatch(authTest(localAuth));
   },
 });
 
