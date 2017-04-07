@@ -2,9 +2,12 @@ import firebase from 'firebase';
 import { SET_AUTH_INFO } from './constants';
 import { setAppLocalStorage } from '../../utils/localStorage';
 
-export const setAuthInfo = auth => async (dispatch, getState) => {
-  if (!auth || !auth.customToken) {
-    return {};
+export const setAuthInfo = (auth = {}) => async (dispatch, getState) => {
+  if (auth.ok !== true) {
+    return dispatch({
+      type: `${SET_AUTH_INFO}_FULFILLED`,
+      payload: auth,
+    });
   }
 
   dispatch({
