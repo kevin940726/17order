@@ -35,8 +35,14 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(getMenus(ownProps.match.params));
   },
 
-  handleChange(e) {
-    dispatch(handleChange(e.target.value));
+  handleChange(menuId) {
+    return (e) => {
+      if (e) {
+        e.preventDefault();
+      }
+
+      dispatch(handleChange(menuId));
+    }
   },
 
   handleEdit(e) {

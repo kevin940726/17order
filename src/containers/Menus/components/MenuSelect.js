@@ -1,24 +1,27 @@
 import React from 'react';
 import { TODAY } from '../../../utils/constants';
+import SmallLabel from '../../../components/SmallLabel';
+import TimeAgo from '../../../components/TimeAgo';
 
 const MenuSelect = ({ value, handleChange, menus }) => (
-  <div className="field">
-    <label className="label">Select a menu</label>
-    <p className="control">
-      <span className="select">
-        <select value={value} onChange={handleChange}>
-          {menus.groupBy(menu => menu.date)
-            .map((group, date) => (
-              <optgroup label={date === TODAY ? 'Today' : date} key={date}>
-                {group.map(menu => (
-                  <option key={menu.key} value={menu.key}>{menu.name}</option>
-                ))}
-              </optgroup>
-            )).toList()}
-        </select>
-      </span>
-    </p>
-  </div>
+  <nav className="panel">
+    {menus.map(menu => (
+      <a
+        key={menu.key}
+        className={`panel-block ${menu.key === value ? 'is-active' : ''}`}
+        onClick={handleChange(menu.key)}
+      >
+        <p className="control">
+          <span>
+            {menu.name}
+          </span>
+          <SmallLabel className="is-pulled-right">
+            <TimeAgo date={menu.timestamp} />
+          </SmallLabel>
+        </p>
+      </a>
+    ))}
+  </nav>
 );
 
 export default MenuSelect;
