@@ -27,7 +27,7 @@ export const getMenus = params => (dispatch, getState) => {
   C.menuBinding.bind(ref);
 
   // dirty hack, bear with me now
-  const { menuId } = params || {}
+  const { menuId } = params || {};
 
   if (menuId) {
     dispatch(handleChange(menuId));

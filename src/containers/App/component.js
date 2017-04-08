@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import Form from '../Form';
 import NewMenu from '../NewMenu';
 import Orders from '../Orders';
@@ -40,8 +40,10 @@ class App extends Component {
               New Menu
             </button>
 
-            <Route exact path="/" component={Menus} />
-            <Route path="/:menuId" component={Menus} />
+            <Switch>
+              <Route exact path="/" component={Menus} />
+              <Route path="/:menuId" component={Menus} />
+            </Switch>
 
             <Form />
           </div>

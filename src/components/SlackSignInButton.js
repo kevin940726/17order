@@ -14,4 +14,8 @@ const SignInButton = ({ state }) => (
   </a>
 );
 
+SignInButton.defaultProps = {
+  state: '',
+};
+
 export default SignInButton;
