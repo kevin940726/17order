@@ -9,6 +9,12 @@ const menusSelector = state => state.menus[MENUS_LIST];
 const valueSelector = state => state.menus.active;
 const uidSelector = state => state.auth.user.id;
 
+const currentMenuSelector = createSelector(
+  menusSelector,
+  valueSelector,
+  (menus, active) => menus.find(menu => menu.key === active, null, {})
+);
+
 const isEditableSelector = createSelector(
   menusSelector,
   valueSelector,
@@ -20,6 +26,7 @@ const mapStateToProps = (state, ownProps) => ({
   menus: menusSelector(state),
   value: valueSelector(state),
   active: ownProps.match.params && ownProps.match.params.menuId,
+  currentMenu: currentMenuSelector(state),
   isEditable: isEditableSelector(state),
 });
 

@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { replace } from 'react-router-redux';
 import { SET_AUTH_INFO } from './constants';
 import { setAppLocalStorage } from '../../utils/localStorage';
 
@@ -24,13 +25,14 @@ export const setAuthInfo = (auth = {}) => async (dispatch, getState) => {
       payload: auth,
     });
   } catch (err) {
-    return dispatch({
+    dispatch({
       type: `${SET_AUTH_INFO}_REJECT`,
       payload: {
         error: true,
         ...err,
       },
     });
+    dispatch(replace('/login'));
   }
 };
 

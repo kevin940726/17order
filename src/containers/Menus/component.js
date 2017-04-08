@@ -41,7 +41,7 @@ class Menus extends Component {
   }
 
   render() {
-    const { menus, value, handleChange, isEditable, handleEdit } = this.props;
+    const { menus, value, handleChange, isEditable, handleEdit, currentMenu } = this.props;
     const { isConfirmModalOpen } = this.state;
 
     if (!value) {
@@ -55,6 +55,10 @@ class Menus extends Component {
           handleChange={handleChange}
           menus={menus}
         />
+
+        {(currentMenu.menu || []).map(img => (
+          <img src={img.thumb_360} key={img.id} alt={img.name} />
+        ))}
 
         {isEditable && (
           <span>
