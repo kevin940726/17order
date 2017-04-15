@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import { HANDLE_CHANGE, HANDLE_SUBMIT, EDIT_ORDER, HANDLE_EDIT_CANCEL } from './constants';
 import db from '../../db';
 import { TODAY } from '../../utils/constants';
+import { currentMenuSelector } from '../CurrentMenu/selectors';
 
 export const handleChange = createAction(HANDLE_CHANGE, (name, value) => ({
   name,
@@ -10,12 +11,19 @@ export const handleChange = createAction(HANDLE_CHANGE, (name, value) => ({
 
 export const handleSubmit = () => (dispatch, getState) => {
   const { form, auth, menus } = getState();
+  const type = currentMenuSelector(getState()).type;
+
   const order = {
     date: TODAY,
     menu: menus.active,
     memberId: auth.user.id,
     memberName: auth.user.name,
     order: form.order,
+    ...(type === 'beverages' ? {
+      size: form.size,
+      sugar: form.sugar,
+      ice: form.ice,
+    } : {}),
     timestamp: Date.now(),
   };
 
