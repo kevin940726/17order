@@ -1,5 +1,4 @@
 import React from 'react';
-import { TODAY } from '../../../utils/constants';
 import SmallLabel from '../../../components/SmallLabel';
 import TimeAgo from '../../../components/TimeAgo';
 

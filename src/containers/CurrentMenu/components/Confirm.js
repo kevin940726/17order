@@ -1,12 +1,13 @@
 import React from 'react';
 import Modal from '../../../components/Modal';
+import modalContainer from '../../../components/modalContainer';
 
-const Confirm = ({ isOpen, handleConfirm, handleClose }) => (
+const Confirm = ({ isOpen, handleSubmit, handleClose }) => (
   <Modal
     title="Confirm Delete"
     isOpen={isOpen}
     handleClose={handleClose}
-    handleSubmit={handleConfirm}
+    handleSubmit={handleSubmit}
     yesText="Delete"
     noText="Cancel"
   >
@@ -14,4 +15,4 @@ const Confirm = ({ isOpen, handleConfirm, handleClose }) => (
   </Modal>
 );
 
-export default Confirm;
+export default modalContainer(Confirm);

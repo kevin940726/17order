@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import Nav from './components/Nav';
+import Wrapper from './components/Wrapper';
 import Form from '../Form';
 import NewMenu from '../NewMenu';
 import Orders from '../Orders';
 import Menus from '../Menus';
+import CurrentMenu from '../CurrentMenu';
 import { getAppLocalStorage } from '../../utils/localStorage';
 
 class App extends Component {
@@ -31,27 +34,35 @@ class App extends Component {
     }
 
     return (
-      <div className="container">
-        <div className="box">
-          <div>
-            <h1>Welcome {auth.user.name} <Link to="/signout">sign out</Link></h1>
+      <div>
+        <Nav auth={auth} />
 
-            <button className="button primary" onClick={handleOpenNewMenuModal}>
-              New Menu
-            </button>
+        <Wrapper className="container">
+          <CurrentMenu />
 
-            <Switch>
-              <Route exact path="/" component={Menus} />
-              <Route path="/:menuId" component={Menus} />
-            </Switch>
+          <div className="columns">
+            <div className="column is-two-thirds">
+              <div className="box">
+                <Form />
+                <Orders />
+                <NewMenu />
+              </div>
+            </div>
 
-            <Form />
+            <div className="column">
+              <div className="box">
+                <button className="button primary" onClick={handleOpenNewMenuModal}>
+                  New Menu
+                </button>
+
+                <Switch>
+                  <Route exact path="/" component={Menus} />
+                  <Route path="/:menuId" component={Menus} />
+                </Switch>
+              </div>
+            </div>
           </div>
-
-          <Orders />
-        </div>
-
-        <NewMenu />
+        </Wrapper>
       </div>
     );
   }

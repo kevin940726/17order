@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
-import Confirm from './components/Confirm';
-import MenuSelect from './components/MenuSelect';
+import React, { PureComponent } from 'react';
+import SmallLabel from '../../components/SmallLabel';
+import TimeAgo from '../../components/TimeAgo';
 
-class Menus extends Component {
-  state = {
-    isConfirmModalOpen: false,
-  };
-
+class Menus extends PureComponent {
   componentDidMount() {
     this.props.getMenus();
   }
@@ -23,64 +19,32 @@ class Menus extends Component {
     }
   }
 
-  handleOpenModal = () => {
-    this.setState({
-      isConfirmModalOpen: true,
-    });
-  }
-
-  handleCloseModal = () => {
-    this.setState({
-      isConfirmModalOpen: false,
-    });
-  }
-
-  handleConfirm = () => {
-    this.props.handleRemove();
-    this.handleCloseModal();
-  }
-
   render() {
-    const { menus, value, handleChange, isEditable, handleEdit, currentMenu } = this.props;
-    const { isConfirmModalOpen } = this.state;
+    const { menus, value, handleChange } = this.props;
 
     if (!value) {
       return (<div>loading...</div>);
     }
 
     return (
-      <div>
-        <MenuSelect
-          value={value}
-          handleChange={handleChange}
-          menus={menus}
-        />
-
-        {(currentMenu.menu || []).map(img => (
-          <img src={img.thumb_360} key={img.id} alt={img.name} />
+      <nav className="panel">
+        {menus.map(menu => (
+          <a
+            key={menu.key}
+            className={`panel-block ${menu.key === value ? 'is-active' : ''}`}
+            onClick={handleChange(menu.key)}
+          >
+            <p className="control">
+              <span>
+                {menu.name}
+              </span>
+              <SmallLabel className="is-pulled-right">
+                <TimeAgo date={menu.timestamp} />
+              </SmallLabel>
+            </p>
+          </a>
         ))}
-
-        {isEditable && (
-          <span>
-            <a onClick={handleEdit}>
-              <span className="icon">
-                <i className="fa fa-pencil"></i>
-              </span>
-            </a>
-            <a onClick={this.handleOpenModal}>
-              <span className="icon">
-                <i className="fa fa-times"></i>
-              </span>
-            </a>
-          </span>
-        )}
-
-        <Confirm
-          isOpen={isConfirmModalOpen}
-          handleClose={this.handleCloseModal}
-          handleConfirm={this.handleConfirm}
-        />
-      </div>
+      </nav>
     );
   }
 }
