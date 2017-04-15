@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Confirm from './components/Confirm';
-import getHighestThumb from '../../utils/getHighestThumb';
+import Thumb from './components/Thumb';
+import { getFitThumb } from '../../utils/thumbs';
 
 class CurrentMenu extends PureComponent {
   state = {
@@ -50,9 +51,9 @@ class CurrentMenu extends PureComponent {
 
         <div className="has-text-centered">
           {(menu.menu || []).map(img => (
-            <a key={img.id} href={img.permalink_public} target="_blank" rel="noopener noreferrer">
-              <img src={(getHighestThumb(img) || {}).value} alt={img.name} />
-            </a>
+            <Thumb key={img.id} href={img.permalink_public} target="_blank" rel="noopener noreferrer">
+              <img src={(getFitThumb(img) || {}).value} alt={img.name} />
+            </Thumb>
           ))}
         </div>
 
