@@ -35,7 +35,7 @@ const Tr = styled.tr`
 `;
 
 const Orders = ({ orders, isLoading, removeOrder, editOrder, uid, type }) => (
-  <table className="table">
+  <table className="table is-striped">
     <thead>
       <Header type={type} />
     </thead>

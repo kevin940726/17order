@@ -8,6 +8,17 @@ const Icon = styled.span`
   color: #999;
 `;
 
+const getYesterdayTimestamp = () => {
+  const now = new Date();
+  // set to yesterday same time
+  const yesterday = new Date(now.setDate(now.getDate() - 1));
+  // set to 00:00
+  yesterday.setHours(0, 0, 0, 0);
+
+  // convert to timestamp
+  return yesterday.getTime();
+};
+
 class Menus extends PureComponent {
   componentDidMount() {
     this.props.getMenus();
@@ -26,7 +37,7 @@ class Menus extends PureComponent {
   }
 
   render() {
-    const { menus, value, handleChange } = this.props;
+    const { menus, value, handleChange, isExpanded, expandMenus } = this.props;
 
     if (!value) {
       return null;
@@ -34,29 +45,38 @@ class Menus extends PureComponent {
 
     return (
       <nav className="panel">
-        {menus.map(menu => (
-          <a
-            key={menu.key}
-            className={`panel-block ${menu.key === value ? 'is-active' : ''}`}
-            onClick={handleChange(menu.key)}
+        {menus.filter(menu => isExpanded ? true : menu.timestamp >= getYesterdayTimestamp() )
+          .map(menu => (
+            <a
+              key={menu.key}
+              className={`panel-block ${menu.key === value ? 'is-active' : ''}`}
+              onClick={handleChange(menu.key)}
+            >
+              <p className="control">
+                <Icon className="icon">
+                  {menu.type === 'restaurant' ? (
+                    <i className="fa fa-cutlery"></i>
+                  ) : (
+                    <i className="fa fa-coffee"></i>
+                  )}
+                </Icon>
+                <span>
+                  {menu.name}
+                </span>
+                <SmallLabel className="is-pulled-right">
+                  <TimeAgo date={menu.timestamp} />
+                </SmallLabel>
+              </p>
+            </a>
+          ))}
+        <div className="panel-block">
+          <button
+            className="button is-fullwidth"
+            onClick={expandMenus}
           >
-            <p className="control">
-              <Icon className="icon">
-                {menu.type === 'restaurant' ? (
-                  <i className="fa fa-cutlery"></i>
-                ) : (
-                  <i className="fa fa-coffee"></i>
-                )}
-              </Icon>
-              <span>
-                {menu.name}
-              </span>
-              <SmallLabel className="is-pulled-right">
-                <TimeAgo date={menu.timestamp} />
-              </SmallLabel>
-            </p>
-          </a>
-        ))}
+            {isExpanded ? 'Show Less' : 'Show More'}
+          </button>
+        </div>
       </nav>
     );
   }

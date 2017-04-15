@@ -16,13 +16,8 @@ export const handleChange = menu => (dispatch) => {
 export const getMenus = params => (dispatch, getState) => {
   const { auth } = getState();
 
-  const now = new Date();
-  // up until 7 days ago
-  const until = new Date(now.setDate(now.getDate() - 7));
-
   const ref = db.ref(`${auth.team.id}/menus`)
-    .orderByChild('timestamp')
-    .startAt(until.getTime());
+    .orderByChild('timestamp');
 
   C.menuBinding.bind(ref);
 
@@ -39,3 +34,7 @@ export const getMenus = params => (dispatch, getState) => {
       });
   }
 };
+
+export const expandMenus = () => ({
+  type: C.EXPAND_MENUS,
+});

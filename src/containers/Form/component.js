@@ -16,33 +16,39 @@ const Form = ({ editKey, order, handleChange, handleSubmit, handleEdit, handleEd
     />
 
     {type === 'beverages' && (
-      <div>
-        <Select
-          label="Size"
-          options={sizeDict.map((label, value) => ({
-            label,
-            value
-          })).toArray()}
-          name="size"
-        />
+      <div className="columns">
+        <div className="column">
+          <Select
+            label="Size"
+            options={sizeDict.map((label, value) => ({
+              label,
+              value
+            })).toArray()}
+            name="size"
+          />
+        </div>
 
-        <Select
-          label="Sugar"
-          options={sugarDict.map((label, value) => ({
-            label,
-            value
-          })).toArray()}
-          name="sugar"
-        />
+        <div className="column">
+          <Select
+            label="Sugar"
+            options={sugarDict.map((label, value) => ({
+              label,
+              value
+            })).toArray()}
+            name="sugar"
+          />
+        </div>
 
-        <Select
-          label="Ice/Hot"
-          options={iceDict.map((label, value) => ({
-            label,
-            value
-          })).toArray()}
-          name="ice"
-        />
+        <div className="column">
+          <Select
+            label="Ice/Hot"
+            options={iceDict.map((label, value) => ({
+              label,
+              value
+            })).toArray()}
+            name="ice"
+          />
+        </div>
       </div>
     )}
 

@@ -8,9 +8,15 @@ const menus = handleActions({
     ...state,
     active: action.payload,
   }),
+
+  [C.EXPAND_MENUS]: state => ({
+    ...state,
+    isExpanded: !state.isExpanded,
+  }),
 }, {
   ...C.menuBinding.getInitialState(),
   active: '',
+  isExpanded: false,
 });
 
 export default menus;

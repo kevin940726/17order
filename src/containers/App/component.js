@@ -40,27 +40,32 @@ class App extends Component {
         <Wrapper className="container">
           <CurrentMenu />
 
-          <div className="columns">
-            <div className="column is-two-thirds">
-              <div className="box">
-                <Form />
-                <Orders />
-                <NewMenu />
+          <div className="tile is-ancestor">
+            <div className="tile">
+              <div className="tile is-parent is-8">
+                <div className="tile is-child box">
+                  <Form />
+                  <NewMenu />
+                </div>
+              </div>
+
+              <div className="tile is-parent">
+                <div className="tile is-child box">
+                  <button className="button is-primary" onClick={handleOpenNewMenuModal}>
+                    New Menu
+                  </button>
+
+                  <Switch>
+                    <Route exact path="/" component={Menus} />
+                    <Route path="/:menuId" component={Menus} />
+                  </Switch>
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="column">
-              <div className="box">
-                <button className="button is-primary" onClick={handleOpenNewMenuModal}>
-                  New Menu
-                </button>
-
-                <Switch>
-                  <Route exact path="/" component={Menus} />
-                  <Route path="/:menuId" component={Menus} />
-                </Switch>
-              </div>
-            </div>
+          <div className="box">
+            <Orders />
           </div>
         </Wrapper>
       </div>

@@ -22,3 +22,5 @@ export const menuBinding = createBinding({
 });
 
 export const HANDLE_CHANGE = 'Menus/HANDLE_CHANGE';
+
+export const EXPAND_MENUS = 'Menus/EXPAND_MENUS';

@@ -11,7 +11,7 @@ const Nav = ({ auth }) => (
       </Link>
     </div>
 
-    <div className="nav-right nav-menu">
+    <div className="nav-right nav-menu is-tab">
       <span className="nav-item">
         {auth.user.name}
       </span>

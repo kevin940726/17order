@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import Menus from './component';
-import { handleChange, getMenus } from './actions';
+import { handleChange, getMenus, expandMenus } from './actions';
 import { MENUS_LIST } from './constants';
 
 const mapStateToProps = (state, ownProps) => ({
   menus: state.menus[MENUS_LIST],
   value: state.menus.active,
   active: ownProps.match.params && ownProps.match.params.menuId,
+  isExpanded: state.menus.isExpanded,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -22,6 +23,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
       dispatch(handleChange(menuId));
     }
+  },
+
+  expandMenus() {
+    dispatch(expandMenus());
   },
 });
 
