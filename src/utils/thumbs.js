@@ -49,7 +49,7 @@ export const getFitThumb = (img) => {
 
   if (sorted.length) {
     const fitThumbs = sorted.filter(thumb => (
-      thumb.resolution / windowWidth * windowHeight < windowWidth / 2
+      thumb.resolution < Math.max(windowWidth, windowHeight)
     ));
 
     return fitThumbs.length ? fitThumbs[0] : sortThumbs[0];
