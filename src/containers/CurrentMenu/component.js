@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import Confirm from './components/Confirm';
+import getHighestThumb from '../../utils/getHighestThumb';
 
 class CurrentMenu extends PureComponent {
   state = {
@@ -47,9 +48,11 @@ class CurrentMenu extends PureComponent {
           )}
         </h1>
 
-        <div>
+        <div className="has-text-centered">
           {(menu.menu || []).map(img => (
-            <img src={img.thumb_360} key={img.id} alt={img.name} />
+            <a key={img.id} href={img.permalink_public} target="_blank" rel="noopener noreferrer">
+              <img src={(getHighestThumb(img) || {}).value} alt={img.name} />
+            </a>
           ))}
         </div>
 

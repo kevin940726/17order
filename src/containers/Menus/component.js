@@ -23,7 +23,7 @@ class Menus extends PureComponent {
     const { menus, value, handleChange } = this.props;
 
     if (!value) {
-      return (<div>loading...</div>);
+      return null;
     }
 
     return (

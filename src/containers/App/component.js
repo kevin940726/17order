@@ -51,7 +51,7 @@ class App extends Component {
 
             <div className="column">
               <div className="box">
-                <button className="button primary" onClick={handleOpenNewMenuModal}>
+                <button className="button is-primary" onClick={handleOpenNewMenuModal}>
                   New Menu
                 </button>
 
