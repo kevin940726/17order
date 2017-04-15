@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import Form from './component';
 import { handleChange, handleSubmit, handleEdit, handleEditCancel } from './actions';
+import { currentMenuSelector } from '../CurrentMenu/selectors';
 
 const mapStateToProps = state => ({
   order: state.form.order,
   editKey: state.form.editKey,
+  type: currentMenuSelector(state).type,
 });
 
 const mapDispatchToProps = dispatch => ({

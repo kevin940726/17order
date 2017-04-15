@@ -1,6 +1,12 @@
 import { handleActions } from 'redux-actions';
 import { HANDLE_CHANGE, HANDLE_SUBMIT, EDIT_ORDER, HANDLE_EDIT_CANCEL } from './constants.js';
 
+const defaultBeveragesFields = {
+  size: 'big',
+  sugar: 'regular',
+  ice: 'regular',
+};
+
 const form = handleActions({
   [HANDLE_CHANGE]: (state, action) => ({
     ...state,
@@ -24,6 +30,7 @@ const form = handleActions({
   }),
 }, {
   order: '',
+  ...defaultBeveragesFields,
   editKey: null,
 });
 

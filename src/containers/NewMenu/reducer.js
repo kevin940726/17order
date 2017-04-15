@@ -2,24 +2,12 @@ import { handleActions } from 'redux-actions';
 import * as C from './constants';
 
 const defaultFields = {
-  type: 'retaurant',
+  type: 'restaurant',
   name: '',
   menu: '',
   notes: '',
   file: {},
 };
-
-const defaultBeveragesFields = (type) => (
-  type === 'beverages' ? {
-    size: 'big',
-    sugar: 'regular',
-    ice: 'regular',
-  } : {
-    size: null,
-    sugar: null,
-    ice: null,
-  }
-);
 
 const newMenu = handleActions({
   [C.HANDLE_OPEN_MODAL]: state => ({
@@ -39,7 +27,6 @@ const newMenu = handleActions({
     fields: {
       ...state.fields,
       [action.payload.name]: action.payload.value,
-      ...(action.payload.name === 'type' ? defaultBeveragesFields(action.payload.value) : {}),
     },
   }),
 

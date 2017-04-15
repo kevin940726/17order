@@ -1,6 +1,12 @@
 import React, { PureComponent } from 'react';
 import SmallLabel from '../../components/SmallLabel';
 import TimeAgo from '../../components/TimeAgo';
+import styled from 'styled-components';
+
+const Icon = styled.span`
+  margin-right: 0.5em;
+  color: #999;
+`;
 
 class Menus extends PureComponent {
   componentDidMount() {
@@ -35,6 +41,13 @@ class Menus extends PureComponent {
             onClick={handleChange(menu.key)}
           >
             <p className="control">
+              <Icon className="icon">
+                {menu.type === 'restaurant' ? (
+                  <i className="fa fa-cutlery"></i>
+                ) : (
+                  <i className="fa fa-coffee"></i>
+                )}
+              </Icon>
               <span>
                 {menu.name}
               </span>
