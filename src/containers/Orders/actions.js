@@ -22,3 +22,8 @@ export const removeAction = key => (dispatch, getState) => {
     payload: db.ref(`${auth.team.id}/orders/${key}`).remove(),
   });
 };
+
+export const changeView = (view) => ({
+  type: C.CHANGE_VIEW,
+  payload: view,
+});

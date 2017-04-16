@@ -24,3 +24,5 @@ export const orderBinding = createBinding({
 });
 
 export const REMOVE_ACTION = 'Orders/REMOVE_ACTION';
+
+export const CHANGE_VIEW = 'Orders/CHANGE_VIEW';

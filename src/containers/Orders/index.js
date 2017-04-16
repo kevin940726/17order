@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Orders from './component';
-import { removeAction } from './actions';
+import { removeAction, changeView } from './actions';
 import { editOrder } from '../Form/actions';
 import { ORDERS_LIST, IS_LOADING } from './constants';
 import { currentMenuSelector } from '../CurrentMenu/selectors';
@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   isLoading: state.orders[IS_LOADING],
   uid: state.auth.user && state.auth.user.id,
   type: currentMenuSelector(state).type,
+  view: state.orders.view,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,6 +27,12 @@ const mapDispatchToProps = dispatch => ({
       e.preventDefault();
 
       dispatch(removeAction(key));
+    };
+  },
+
+  changeView(view) {
+    return () => {
+      dispatch(changeView(view));
     };
   },
 });
