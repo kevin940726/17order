@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import SmallLabel from '../../components/SmallLabel';
-import TimeAgo from '../../components/TimeAgo';
 import styled from 'styled-components';
+import { mapTimestampToDate, getShortDate } from '../../utils/dates';
 
 const Icon = styled.span`
   margin-right: 0.5em;
@@ -77,7 +77,9 @@ class Menus extends PureComponent {
                     {menu.name}
                   </span>
                   <SmallLabel className="is-pulled-right">
-                    <TimeAgo date={menu.timestamp} />
+                    <span>{mapTimestampToDate(menu.timestamp)}</span>
+                    {' '}
+                    <span>{getShortDate(menu.timestamp)}</span>
                   </SmallLabel>
                 </p>
               </a>
