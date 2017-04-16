@@ -4,9 +4,8 @@ import { sizeDict, sugarDict, iceDict } from '../../../utils/dicts';
 import Tr from './Tr';
 
 const getFields = type => [
-  { label: 'Date', getValue: order => order.date },
-  { label: 'Member', getValue: order => order.memberName },
   { label: 'Order', getValue: order => order.order },
+  { label: 'Member', getValue: order => order.memberName },
   ...(type === 'beverages' ? [
     { label: 'Size', getValue: order => sizeDict.get(order.size) },
     { label: 'Sugar', getValue: order => sugarDict.get(order.sugar) },

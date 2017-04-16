@@ -20,3 +20,9 @@ export const iceDict = OrderedMap([
   ['free', 'ice-free'],
   ['hot', 'hot'],
 ]);
+
+export const beveragesFieldDict = OrderedMap([
+  ['size', 'Size'],
+  ['sugar', 'Sugar'],
+  ['ice', 'Ice/Hot'],
+]);
