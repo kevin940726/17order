@@ -1,12 +1,13 @@
 import React from 'react';
+import { List } from 'immutable';
 import { sizeDict, sugarDict, iceDict } from '../../../utils/dicts';
 
 const getFields = type => [
   {
     label: 'Order',
     value: 'order',
-    getComponent: (order, index, rows) => (
-      index === 0 && (<td key="order" rowSpan={rows.size}>{order.order}</td>) 
+    getComponent: (order, index = 0, span = 1) => (
+      index === 0 && (<td key="order" rowSpan={span}>{order.order}</td>) 
     ),
   },
   ...(type === 'beverages' ? [
@@ -43,7 +44,7 @@ const groupOrders = (orders, groupers) => {
 
   return orders.groupBy(order => order[groupers[0]])
     .map((group, value) => groupOrders(group, groupers.slice(1)))
-    .toList()
+    .toList();
 };
 
 const Header = ({ type }) => (
@@ -69,15 +70,23 @@ const TableView = ({ orders, type, isLoading }) => (
           .map(field => field.value)
           .slice(0, -1)
       )
-        .map(group => (
-          group
-            .flatten()
-            .map((order, index, rows) => (
-              <tr key={order.key}>
-                {getFields(type).map(field => field.getComponent(order, index, rows))}
-              </tr>
-            ))
-        ))
+        .map(group => {
+          if (List.isList(group)) {
+            return group
+              .flatten()
+              .map((order, index, rows) => (
+                <tr key={order.key}>
+                  {getFields(type).map(field => field.getComponent(order, index, rows.size))}
+                </tr>
+              ));
+          }
+          
+          return (
+            <tr key={group.key}>
+              {getFields(type).map(field => field.getComponent(group))}
+            </tr>
+          );
+        })
       }
     </tbody>
     {orders.size > 5 && (
