@@ -1,19 +1,20 @@
 import React from 'react';
+import AutoComplete from './components/AutoComplete';
 import formContainer from './formContainer';
-import InputComponent from '../../components/Input';
 import SelectComponent from '../../components/Select';
 import { sizeDict, sugarDict, iceDict } from '../../utils/dicts';
 
 const Select = formContainer(SelectComponent);
-const Input = formContainer(InputComponent);
 
-const Form = ({ editKey, order, handleChange, handleSubmit, handleEdit, handleEditCancel, type }) => (
+const Form = ({ editKey, order, handleChange, handleSelect, handleSubmit, handleEdit, handleEditCancel, type, orders }) => (
   <form onSubmit={editKey ? handleEdit : handleSubmit}>
-    <Input
-      label="Order"
-      name="order"
-      placeholder="Place your order"
-    />
+    <div className="field">
+      <label className="label">
+        Order
+      </label>
+      <AutoComplete orders={orders} handleChange={handleChange} />
+    </div>
+    
 
     {type === 'beverages' && (
       <div className="columns">

@@ -11,6 +11,11 @@ export const handleChange = createAction(HANDLE_CHANGE, (name, value) => ({
 
 export const handleSubmit = () => (dispatch, getState) => {
   const { form, auth, menus } = getState();
+
+  if (!form.order) {
+    return;
+  }
+
   const type = currentMenuSelector(getState()).type;
 
   const order = {

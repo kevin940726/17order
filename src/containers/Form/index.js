@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   order: state.form.order,
   editKey: state.form.editKey,
   type: currentMenuSelector(state).type,
+  orders: state.orders.orders.toArray(),
 });
 
 const mapDispatchToProps = dispatch => ({
