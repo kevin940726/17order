@@ -37,28 +37,27 @@ class CurrentMenu extends PureComponent {
 
         <h4 className="subtitle is-4">
           {menu.date}
+          {isEditable && (
+            <div className="field is-grouped is-pulled-right">
+              <p className="control">
+                <button className="button is-info is-outlined" onClick={handleEdit}>
+                  <span className="icon is-small">
+                    <i className="fa fa-pencil"></i>
+                  </span>
+                  <span>Edit</span>
+                </button>
+              </p>
+              <p className="control">
+                <button className="button is-danger is-outlined" onClick={this.handleOpenModal}>
+                  <span className="icon is-small">
+                    <i className="fa fa-times"></i>
+                  </span>
+                  <span>Delete</span>
+                </button>
+              </p>
+            </div>
+          )}
         </h4>
-
-        {isEditable && (
-          <div className="field is-grouped is-pulled-right">
-            <p className="control">
-              <button className="button is-info is-outlined" onClick={handleEdit}>
-                <span className="icon is-small">
-                  <i className="fa fa-pencil"></i>
-                </span>
-                <span>Edit</span>
-              </button>
-            </p>
-            <p className="control">
-              <button className="button is-danger is-outlined" onClick={this.handleOpenModal}>
-                <span className="icon is-small">
-                  <i className="fa fa-times"></i>
-                </span>
-                <span>Delete</span>
-              </button>
-            </p>
-          </div>
-        )}
 
         {menu.notes ? (
           <p>{menu.notes}</p>
