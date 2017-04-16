@@ -31,23 +31,38 @@ class CurrentMenu extends PureComponent {
 
     return (
       <div className="box">
-        <h1 className="title">
+        <h1 className="title is-1">
           {menu.name}
-          {isEditable && (
-            <span>
-              <a onClick={handleEdit}>
-                <span className="icon">
+        </h1>
+
+        <h4 className="subtitle is-4">
+          {menu.date}
+        </h4>
+
+        {isEditable && (
+          <div className="field is-grouped is-pulled-right">
+            <p className="control">
+              <button className="button is-info is-outlined" onClick={handleEdit}>
+                <span className="icon is-small">
                   <i className="fa fa-pencil"></i>
                 </span>
-              </a>
-              <a onClick={this.handleOpenModal}>
-                <span className="icon">
+                <span>Edit</span>
+              </button>
+            </p>
+            <p className="control">
+              <button className="button is-danger is-outlined" onClick={this.handleOpenModal}>
+                <span className="icon is-small">
                   <i className="fa fa-times"></i>
                 </span>
-              </a>
-            </span>
-          )}
-        </h1>
+                <span>Delete</span>
+              </button>
+            </p>
+          </div>
+        )}
+
+        {menu.notes ? (
+          <p>{menu.notes}</p>
+        ): null}
 
         <div className="has-text-centered">
           {(menu.menu || []).map(img => (
