@@ -17,7 +17,12 @@ const getFields = type => [
 const Header = ({ type }) => (
   <tr>
     {getFields(type).map(field => (
-      <th key={field.label}>{field.label}</th>
+      <th
+        className={field.label === 'Last Update' && 'is-hidden-mobile'}
+        key={field.label}
+      >
+        {field.label}
+      </th>
     ))}
     <th />
   </tr>
@@ -35,7 +40,12 @@ const ListView = ({ orders, editOrder, removeOrder, type, uid, isLoading }) => (
       {orders.map(order => (
         <Tr key={order.key}>
           {getFields(type).map(field => (
-            <td key={field.label}>{field.getValue(order)}</td>
+            <td 
+              className={field.label === 'Last Update' && 'is-hidden-mobile'}
+              key={field.label}
+            >
+              {field.getValue(order)}
+            </td>
           ))}
           {uid === order.memberId ? (
             <td>

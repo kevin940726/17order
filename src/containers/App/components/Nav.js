@@ -11,12 +11,10 @@ const Nav = ({ auth }) => (
       </Link>
     </div>
 
-    <div className="nav-right nav-menu is-tab">
+    <div className="nav-right">
       <span className="nav-item">
-        {auth.user.name}
-      </span>
-      <span className="nav-item">
-        <Link className="button" to="/signout">
+        <span>{auth.user.name}</span>
+        <Link className="button is-link" to="/signout">
           <span>Sign Out</span>
         </Link>
       </span>
