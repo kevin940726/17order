@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Menus from './component';
 import { handleChange, getMenus, expandMenus } from './actions';
+import { handleOpenModal as handleOpenNewMenuModal } from '../NewMenu/actions';
 import { MENUS_LIST } from './constants';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -27,6 +28,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
   expandMenus() {
     dispatch(expandMenus());
+  },
+
+  handleOpenNewMenuModal() {
+    dispatch(handleOpenNewMenuModal());
   },
 });
 

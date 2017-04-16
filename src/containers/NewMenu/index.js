@@ -6,6 +6,7 @@ const mapStateToProps = state => ({
   isModalOpen: state.newMenu.isModalOpen,
   isSubmitting: state.newMenu.isSubmitting,
   channel: state.auth.webhook.channel,
+  isEditing: state.newMenu.isEditing,
 });
 
 const mapDispatchToProps = dispatch => ({

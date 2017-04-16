@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import App from './component';
 import { setAuthInfo, authTest } from '../Auth/actions';
-import { handleOpenModal as handleOpenNewMenuModal } from '../NewMenu/actions';
 import { replace } from 'react-router-redux';
 
 const mapStateToProps = state => ({
@@ -12,10 +11,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setAuthInfo(auth) {
     dispatch(setAuthInfo(auth));
-  },
-
-  handleOpenNewMenuModal() {
-    dispatch(handleOpenNewMenuModal());
   },
 
   redirect(location) {

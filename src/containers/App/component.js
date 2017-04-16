@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   render() {
-    const { auth, handleOpenNewMenuModal } = this.props;
+    const { auth } = this.props;
     const isLogin = auth && auth.ok === true;
 
     if (!isLogin) {
@@ -51,10 +51,6 @@ class App extends Component {
 
               <div className="tile is-parent">
                 <div className="tile is-child box">
-                  <button className="button is-primary" onClick={handleOpenNewMenuModal}>
-                    New Menu
-                  </button>
-
                   <Switch>
                     <Route exact path="/" component={Menus} />
                     <Route path="/:menuId" component={Menus} />

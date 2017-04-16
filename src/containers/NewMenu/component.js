@@ -9,10 +9,10 @@ const Input = formContainer(InputComponent);
 const Select = formContainer(SelectComponent);
 const TextArea = formContainer(TextAreaComponent);
 
-const NewMenu = ({ isModalOpen, handleCloseModal, handleSubmit, handleChange, isSubmitting, channel }) => (
+const NewMenu = ({ isModalOpen, handleCloseModal, handleSubmit, handleChange, isSubmitting, channel, isEditing }) => (
   <Modal
     isOpen={isModalOpen}
-    title="New Menu"
+    title={`${isEditing ? 'Edit' : 'New'} Menu`}
     handleClose={handleCloseModal}
     handleSubmit={handleSubmit}
     isSubmitting={isSubmitting}
