@@ -12,7 +12,7 @@ const Form = ({ editKey, order, handleChange, handleSelect, handleSubmit, handle
       <label className="label">
         Order
       </label>
-      <AutoComplete orders={orders} handleChange={handleChange} />
+      <AutoComplete value={order} orders={orders} handleChange={handleChange} />
     </div>
     
 

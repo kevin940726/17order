@@ -21,10 +21,10 @@ const Item = styled.a`
 class AutoComplete extends Component {
   static defaultProps = {
     windowSize: 5,
+    value: '',
   };
 
   state = {
-    value: '',
     isShow: false,
     suggestList: [],
     cur: -1,
@@ -75,7 +75,6 @@ class AutoComplete extends Component {
   handleChange = (e) => {
     const { value } = e.target;
     this.setState({
-      value,
       // generate search suggestion list and de-duplicate it
       suggestList: uniqBy(this.fuse.search(value), 'order'),
       // reset cur cursor
@@ -90,7 +89,6 @@ class AutoComplete extends Component {
     }
 
     this.setState({
-      value,
       // clear all suggestions
       suggestList: [],
       // reset cur cursor
@@ -171,8 +169,8 @@ class AutoComplete extends Component {
   autoCompleteRef = null;
 
   render() {
-    const { windowSize } = this.props;
-    const { isShow, value, suggestList, cur, itemHeight } = this.state;
+    const { windowSize, value } = this.props;
+    const { isShow, suggestList, cur, itemHeight } = this.state;
 
     return (
       <div className="control" onFocus={this.handleOpenDropDown} onBlur={this.handleCloseDropDown}>
