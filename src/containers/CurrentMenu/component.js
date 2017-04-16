@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Markdown from 'react-markdown';
 import Confirm from './components/Confirm';
 import Thumb from './components/Thumb';
 import { getFitThumb } from '../../utils/thumbs';
@@ -60,7 +61,7 @@ class CurrentMenu extends PureComponent {
         </h4>
 
         {menu.notes ? (
-          <p>{menu.notes}</p>
+          <Markdown source={menu.notes} softBreak="br" />
         ): null}
 
         <div className="has-text-centered">
