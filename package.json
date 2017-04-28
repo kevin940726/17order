@@ -35,6 +35,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "server": "node server/app.js",
-    "prod": "npm run build && npm run server"
+    "deploy": "npm run build && firebase deploy"
   }
 }

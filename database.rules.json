@@ -1,0 +1,25 @@
+{
+  "rules": {
+    "$teamId": {
+      "webhook": {
+        ".read": "auth.admin === true",
+        ".write": "auth.admin === true"
+      },
+      "menus": {
+        ".read": "auth !== null && auth.token.teamId === $teamId",
+        ".indexOn": ["timestamp", "name"],
+        "$menu": {
+          ".write": "auth !== null && (auth.uid === data.child('memberId').val() || auth.uid === newData.child('memberId').val())"
+        }
+      },
+      "orders": {
+        ".read": "auth !== null && auth.token.teamId === $teamId",
+        ".indexOn": ["menu", "timestamp", "name"],
+        "$order": {
+          ".write": "auth !== null && (auth.uid === data.child('memberId').val() || auth.uid === newData.child('memberId').val())",
+          ".validate": "newData.child('date').isString() && newData.child('memberName').isString() && newData.child('order').isString() && newData.child('timestamp').isNumber()"
+        }
+      },
+    }
+  }
+}
