@@ -19,7 +19,7 @@
           ".write": "auth !== null && (auth.uid === data.child('memberId').val() || auth.uid === newData.child('memberId').val())",
           ".validate": "newData.child('date').isString() && newData.child('memberName').isString() && newData.child('order').isString() && newData.child('timestamp').isNumber()"
         }
-      },
+      }
     }
   }
 }

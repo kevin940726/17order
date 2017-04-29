@@ -4,10 +4,10 @@ import SignInButton, { signInUrl } from '../../components/SlackSignInButton';
 import AddToSlackButton from '../../components/AddToSlackButton';
 
 const Login = ({ auth, location }) => {
-  if (!auth.error) {
-    // directly redirect to slack login if there is no error)
-    window.location.href = `${signInUrl}&state=${location.state || ''}`;
-  }
+  // if (!auth.error) {
+  //   // directly redirect to slack login if there is no error)
+  //   window.location.href = `${signInUrl}&state=${location.state || ''}`;
+  // }
 
   return (
     <div>

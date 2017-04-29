@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const signInUrl = 'https://slack.com/oauth/authorize?scope=identity.basic,identity.team,identity.avatar&client_id=3960830011.162372927344';
+export const redirectUri = encodeURIComponent(`${window.location.origin}/auth`);
+
+export const signInUrl = `https://slack.com/oauth/authorize?scope=identity.basic,identity.team,identity.avatar&client_id=3960830011.162372927344&redirect_uri=${redirectUri}`;
 
 const SignInButton = ({ state }) => (
   <a href={`${signInUrl}&state=${state}`}>

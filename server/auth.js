@@ -4,6 +4,7 @@ const admin = require('firebase-admin');
 
 const api = new ApiBuilder();
 const {
+  FIREBASE_PROJECT_ID,
   FIREBASE_PRIVATE_KEY,
   FIREBASE_CLIENT_EMAIL,
   FIREBASE_DATABASE_URL,
@@ -13,29 +14,21 @@ const {
 
 admin.initializeApp({
   credential: admin.credential.cert({
-    private_key: FIREBASE_PRIVATE_KEY,
-    client_email: FIREBASE_CLIENT_EMAIL,
+    projectId: FIREBASE_PROJECT_ID,
+    privateKey: FIREBASE_PRIVATE_KEY,
+    clientEmail: FIREBASE_CLIENT_EMAIL,
   }),
   databaseURL: FIREBASE_DATABASE_URL,
 });
 
-const promisifyHandler = handler => (request, response, next) => {
-  handler(request)
-    .then(response.json)
-    .catch(err => {
-      console.error(err);
-      next(err);
-    });
-};
-
-const authHandler = (request) => {
-  const { code } = request.query;
+const authHandler = api.get('/auth', (request) => {
+  const { code, redirectUri } = request.queryString;
 
   if (!code) {
     return Promise.reject('No code specified'); // stop poking my server!
   }
 
-  return fetch(`https://slack.com/api/oauth.access?client_id=${SLACK_CLIENT_ID}&client_secret=${SLACK_CLIENT_SECRET}&code=${code}`)
+  return fetch(`https://slack.com/api/oauth.access?client_id=${SLACK_CLIENT_ID}&client_secret=${SLACK_CLIENT_SECRET}&code=${code}&redirect_uri=${redirectUri}`)
     .then(res => res.json())
     .then(auth => {
       // add to slack
@@ -62,6 +55,6 @@ const authHandler = (request) => {
           }))
         );
     });
-};
+});
 
-module.exports = promisifyHandler(authHandler);
+module.exports = api;
