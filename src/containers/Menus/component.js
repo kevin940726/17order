@@ -39,10 +39,6 @@ class Menus extends PureComponent {
   render() {
     const { menus, value, handleChange, isExpanded, expandMenus, handleOpenNewMenuModal } = this.props;
 
-    if (!value) {
-      return null;
-    }
-
     return (
       <div>
         <div className="field has-text-right">

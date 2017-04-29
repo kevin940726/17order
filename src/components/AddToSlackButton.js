@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AddToSlackButton = () => (
-  <a href="https://slack.com/oauth/authorize?scope=incoming-webhook&client_id=3960830011.162372927344">
+  <a href="https://slack.com/oauth/authorize?&client_id=3960830011.162372927344&scope=commands,files:write:user,incoming-webhook">
     <img
       alt="Add to Slack"
       height="40"

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import SignInButton, { signInUrl } from '../../components/SlackSignInButton';
+import SignInButton from '../../components/SlackSignInButton';
 import AddToSlackButton from '../../components/AddToSlackButton';
 
 const Login = ({ auth, location }) => {
